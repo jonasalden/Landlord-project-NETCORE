@@ -1,0 +1,31 @@
+﻿using Landlord_project.Data;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Landlord_project.Data
+{
+    public class Residence
+    {
+        public int Id { get; set; }
+        public string Estate { get; set; }
+        public string Address { get; set; }
+        public string Description { get; set; }
+        public decimal RentalPrice { get; set; }
+        public int Rooms { get; set; }
+        public int Size { get; set; }
+        public int FloorNumber { get; set; }
+        public bool CanRental { get; set; }
+        public DateTime ShowFrom { get; set; }
+        public DateTime ShowTo { get; set; }
+        public DateTime ApplicationFrom { get; set; }
+        public ResidenceGroupType TypeOfResidence { get; set; }
+        public string Area { get; set; }
+        public DateTime DateBuilt { get; set; }
+        public DateTime DateRenovated { get; set; }
+        public bool Featured { get; set; }
+        public string Image { get; set; }
+        public ICollection<ResidenceAssignment> ResidenceAssignments { get; set; }
+    }
+}
