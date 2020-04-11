@@ -39,6 +39,7 @@ namespace Landlord_project
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseNodeModules(env.ContentRootPath);
 
             app.UseRouting();
             app.UseAuthorization();
