@@ -1,0 +1,29 @@
+﻿@model Landlord_project.Models.ResidenceModel
+<div class="col-sm-12 col-md-4 text-center border">
+    <div class="col-12 mt-3">
+        <img class="img-fluid" alt="Image of @Model.Address" src="@Url.Action("GetResidenceImage", "Home", new { Id = Model.Id})" />
+    </div>
+    <div class="col-12">
+        <label asp-for="@Model.Address"></label>
+        <h1>@Model.Address</h1>
+    </div>
+    <div class="col-12">
+        <label asp-for="@Model.Area"></label>
+        <h3>@Model.Area</h3>
+    </div>
+    <div class="col-12">
+        <label asp-for="@Model.Rooms"></label>
+        <span>@Model.Rooms</span>
+    </div>
+    <div class="col-12">
+        <label asp-for="@Model.Size"></label>
+        <span>@Model.Size kvm</span>
+    </div>
+    <div class="col-12">
+        <label asp-for="@Model.RentalPrice"></label>
+        <span>@Model.RentalPrice kr</span>
+    </div> <div class="col-12">
+        <label asp-for="@Model.AvailableFrom"></label>
+        <span>@Model.AvailableFrom</span>
+    </div>
+</div>

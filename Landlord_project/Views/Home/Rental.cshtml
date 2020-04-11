@@ -14,34 +14,7 @@
             {
                 @foreach (var residence in Model)
                 {
-                    <div class="col-sm-12 col-md-4 text-center border">
-                        <div class="col-12 mt-3">
-                            <img src="@Url.Action("GetImage", "Home", new { Id = residence.Id})" />
-                        </div>
-                        <div class="col-12">
-                            <label asp-for="@residence.Address"></label>
-                            <h1>@residence.Address</h1>
-                        </div>
-                        <div class="col-12">
-                            <label asp-for="@residence.Area"></label>
-                            <h3>@residence.Area</h3>
-                        </div>
-                        <div class="col-12">
-                            <label asp-for="@residence.Rooms"></label>
-                            <span>@residence.Rooms</span>
-                        </div>
-                        <div class="col-12">
-                            <label asp-for="@residence.Size"></label>
-                            <span>@residence.Size kvm</span>
-                        </div>
-                        <div class="col-12">
-                            <label asp-for="@residence.RentalPrice"></label>
-                            <span>@residence.RentalPrice kr</span>
-                        </div> <div class="col-12">
-                            <label asp-for="@residence.AvailableFrom"></label>
-                            <span>@residence.AvailableFrom</span>
-                        </div>
-                    </div>
+                    @await Html.PartialAsync("_ResidenceThumb", residence)
                 }
             }
             else

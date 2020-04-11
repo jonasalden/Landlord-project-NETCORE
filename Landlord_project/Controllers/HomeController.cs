@@ -16,12 +16,12 @@ namespace Landlord_project.Controllers
         #region Fields
         private readonly ILogger<HomeController> _logger;
         private readonly DataContext _context;
-        private IHostingEnvironment _environment;
+        private IWebHostEnvironment _environment;
         private readonly string folderPath = "\\images\\";
         #endregion
 
         #region Constructor
-        public HomeController(ILogger<HomeController> logger, DataContext context, IHostingEnvironment environment)
+        public HomeController(ILogger<HomeController> logger, DataContext context, IWebHostEnvironment environment)
         {
             _logger = logger;
             _context = context;
@@ -57,8 +57,6 @@ namespace Landlord_project.Controllers
                     };
                     model.Add(residence);
                 }
-
-
             }
             return View(model);
         }
@@ -71,7 +69,7 @@ namespace Landlord_project.Controllers
         #endregion
 
         #region Helpers
-        public IActionResult GetImage(int id)
+        public IActionResult GetResidenceImage(int id)
         {
             var residence = _context.Residences.FirstOrDefault(r => r.Id == id);
 
