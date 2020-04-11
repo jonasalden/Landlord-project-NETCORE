@@ -1,9 +1,5 @@
-﻿using Landlord_project.Data;
-using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Landlord_project.Data
 {

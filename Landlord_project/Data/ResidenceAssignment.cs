@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Landlord_project.Data
+﻿namespace Landlord_project.Data
 {
     public class ResidenceAssignment
     {

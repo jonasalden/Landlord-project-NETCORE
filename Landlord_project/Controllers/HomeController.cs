@@ -75,8 +75,8 @@ namespace Landlord_project.Controllers
             if (residence == null)
                 return NotFound();
 
-            string webRootpath = _environment.WebRootPath;
-            string fullPath = webRootpath + folderPath + residence.ImageName;
+            var webRootpath = _environment.WebRootPath;
+            var fullPath = webRootpath + folderPath + residence.ImageName;
 
             if (System.IO.File.Exists(fullPath))
             {

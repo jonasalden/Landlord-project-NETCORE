@@ -1,5 +1,4 @@
-﻿using Landlord_project.Models;
-using System;
+﻿using System;
 using System.Linq;
 
 namespace Landlord_project.Data
