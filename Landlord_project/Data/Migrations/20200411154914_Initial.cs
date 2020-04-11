@@ -29,7 +29,9 @@ namespace Landlord_project.Data.Migrations
                     DateBuilt = table.Column<DateTime>(nullable: false),
                     DateRenovated = table.Column<DateTime>(nullable: false),
                     Featured = table.Column<bool>(nullable: false),
-                    Image = table.Column<string>(nullable: true)
+                    ImageName = table.Column<string>(nullable: true),
+                    ImageFile = table.Column<byte[]>(nullable: true),
+                    ImageMimeType = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

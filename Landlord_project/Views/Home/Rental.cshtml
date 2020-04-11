@@ -14,7 +14,10 @@
             {
                 @foreach (var residence in Model)
                 {
-                    <div class="col-4 text-center border">
+                    <div class="col-sm-12 col-md-4 text-center border">
+                        <div class="col-12 mt-3">
+                            <img src="@Url.Action("GetImage", "Home", new { Id = residence.Id})" />
+                        </div>
                         <div class="col-12">
                             <label asp-for="@residence.Address"></label>
                             <h1>@residence.Address</h1>

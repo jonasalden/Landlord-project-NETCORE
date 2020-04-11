@@ -1,4 +1,5 @@
 ﻿using Landlord_project.Data;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,7 +26,9 @@ namespace Landlord_project.Data
         public DateTime DateBuilt { get; set; }
         public DateTime DateRenovated { get; set; }
         public bool Featured { get; set; }
-        public string Image { get; set; }
+        public string ImageName { get; set; }
+        public byte[] ImageFile { get; set; }
+        public string ImageMimeType { get; set; }
         public ICollection<ResidenceAssignment> ResidenceAssignments { get; set; }
     }
 }

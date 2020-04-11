@@ -4,6 +4,7 @@ namespace Landlord_project.Models
 {
     public class ResidenceModel
     {
+        public int Id { get; set; }
         public string Image { get; set; }
         [Display(Name = "Adress:")]
         public string Address { get; set; }

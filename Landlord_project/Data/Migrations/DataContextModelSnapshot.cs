@@ -56,7 +56,13 @@ namespace Landlord_project.Data.Migrations
                     b.Property<int>("FloorNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
+                    b.Property<byte[]>("ImageFile")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageMimeType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("RentalPrice")

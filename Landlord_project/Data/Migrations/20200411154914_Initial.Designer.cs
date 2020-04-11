@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Landlord_project.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200411143715_Initial")]
+    [Migration("20200411154914_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,7 +58,13 @@ namespace Landlord_project.Data.Migrations
                     b.Property<int>("FloorNumber")
                         .HasColumnType("int");
 
-                    b.Property<string>("Image")
+                    b.Property<byte[]>("ImageFile")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageMimeType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("RentalPrice")
