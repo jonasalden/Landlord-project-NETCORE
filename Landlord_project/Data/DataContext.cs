@@ -16,6 +16,8 @@ namespace Landlord_project.Data
         public DbSet<Residence> Residences { get; set; }
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<ResidenceAssignment> ResidenceAssignments { get; set; }
+        public DbSet<ResidenceReport> ResidenceReports { get; set; }
+
         #endregion
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -23,6 +25,7 @@ namespace Landlord_project.Data
             builder.ApplyConfiguration(new ResidenceMap());
             builder.ApplyConfiguration(new TenantMap());
             builder.ApplyConfiguration(new ResidenceAssignmentMap());
+            builder.ApplyConfiguration(new ReportMap());
         }
     }
 }

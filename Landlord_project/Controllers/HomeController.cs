@@ -2,6 +2,7 @@
 using Landlord_project.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -36,7 +37,7 @@ namespace Landlord_project.Controllers
         [Route("hyresledigt")]
         public IActionResult Rental()
         {
-            var residences = _context.Residences.ToList();
+            var residences = _context.Residences.Include(x => x.ResidenceReports).ToList();
             var model = new List<ResidenceModel>();
 
             if (residences.Any())
@@ -52,7 +53,9 @@ namespace Landlord_project.Controllers
                         Image = res.ImageName,
                         Rooms = res.Rooms,
                         Size = res.Size,
-                        RentalPrice = res.RentalPrice
+                        RentalPrice = res.RentalPrice,
+                        Latitude = res.Latitude,
+                        Longitude = res.Longitude
                     };
                     model.Add(residence);
                 }

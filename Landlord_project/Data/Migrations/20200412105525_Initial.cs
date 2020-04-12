@@ -19,6 +19,7 @@ namespace Landlord_project.Data.Migrations
                     RentalPrice = table.Column<decimal>(type: "decimal(6, 2)", nullable: false),
                     Rooms = table.Column<int>(nullable: false),
                     Size = table.Column<int>(nullable: false),
+                    HousingNumber = table.Column<string>(nullable: true),
                     FloorNumber = table.Column<int>(nullable: false),
                     CanRental = table.Column<bool>(nullable: false),
                     ShowFrom = table.Column<DateTime>(nullable: false),
@@ -31,7 +32,9 @@ namespace Landlord_project.Data.Migrations
                     Featured = table.Column<bool>(nullable: false),
                     ImageName = table.Column<string>(nullable: true),
                     ImageFile = table.Column<byte[]>(nullable: true),
-                    ImageMimeType = table.Column<string>(nullable: true)
+                    ImageMimeType = table.Column<string>(nullable: true),
+                    Longitude = table.Column<string>(nullable: true),
+                    Latitude = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,6 +58,34 @@ namespace Landlord_project.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tenants", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ResidenceReports",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Phone = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    ImageName = table.Column<string>(nullable: true),
+                    ImageFile = table.Column<byte[]>(nullable: true),
+                    ImageMimeType = table.Column<string>(nullable: true),
+                    ResidenceId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResidenceReports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ResidenceReports_Residence_ResidenceId",
+                        column: x => x.ResidenceId,
+                        principalTable: "Residence",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,6 +116,11 @@ namespace Landlord_project.Data.Migrations
                 name: "IX_ResidenceAssignments_TenantID",
                 table: "ResidenceAssignments",
                 column: "TenantID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResidenceReports_ResidenceId",
+                table: "ResidenceReports",
+                column: "ResidenceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -93,10 +129,13 @@ namespace Landlord_project.Data.Migrations
                 name: "ResidenceAssignments");
 
             migrationBuilder.DropTable(
-                name: "Residence");
+                name: "ResidenceReports");
 
             migrationBuilder.DropTable(
                 name: "Tenants");
+
+            migrationBuilder.DropTable(
+                name: "Residence");
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Landlord_project.Data
         public decimal RentalPrice { get; set; }
         public int Rooms { get; set; }
         public int Size { get; set; }
+        public string HousingNumber { get; set; }
         public int FloorNumber { get; set; }
         public bool CanRental { get; set; }
         public DateTime ShowFrom { get; set; }
@@ -26,5 +27,9 @@ namespace Landlord_project.Data
         public byte[] ImageFile { get; set; }
         public string ImageMimeType { get; set; }
         public ICollection<ResidenceAssignment> ResidenceAssignments { get; set; }
+        public ICollection<ResidenceReport> ResidenceReports { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude { get; set; }
+
     }
 }

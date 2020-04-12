@@ -10,6 +10,7 @@ namespace Landlord_project.Data.Mappings
             builder.HasKey(re => re.Id);
             builder.Property(re => re.RentalPrice).HasColumnType("decimal(6, 2)");
             builder.HasMany(re => re.ResidenceAssignments).WithOne(rea => rea.Residence).HasForeignKey(rea => rea.ResidenceID);
+
             builder.ToTable("Residence");
         }
     }

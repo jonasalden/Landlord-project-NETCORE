@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Landlord_project.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200411154914_Initial")]
+    [Migration("20200412105525_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,6 +58,9 @@ namespace Landlord_project.Data.Migrations
                     b.Property<int>("FloorNumber")
                         .HasColumnType("int");
 
+                    b.Property<string>("HousingNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<byte[]>("ImageFile")
                         .HasColumnType("varbinary(max)");
 
@@ -65,6 +68,12 @@ namespace Landlord_project.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Latitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("RentalPrice")
@@ -103,6 +112,50 @@ namespace Landlord_project.Data.Migrations
                     b.HasIndex("TenantID");
 
                     b.ToTable("ResidenceAssignments");
+                });
+
+            modelBuilder.Entity("Landlord_project.Data.ResidenceReport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("ImageFile")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageMimeType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ResidenceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResidenceId");
+
+                    b.ToTable("ResidenceReports");
                 });
 
             modelBuilder.Entity("Landlord_project.Data.Tenant", b =>
@@ -149,6 +202,15 @@ namespace Landlord_project.Data.Migrations
                     b.HasOne("Landlord_project.Data.Tenant", "Tenant")
                         .WithMany("ResidenceAssignments")
                         .HasForeignKey("TenantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Landlord_project.Data.ResidenceReport", b =>
+                {
+                    b.HasOne("Landlord_project.Data.Residence", "Residence")
+                        .WithMany("ResidenceReports")
+                        .HasForeignKey("ResidenceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -1,4 +1,7 @@
 ﻿@model Landlord_project.Models.ResidenceModel
+@{
+    var url = "https://www.google.com/maps/embed/v1/search?key=AIzaSyDOT7PZ6L-R64p3EDPgGZqwvSxUZQWan0Q&q=" + Model.Latitude + "," + Model.Longitude;
+}
 <div class="col-sm-12 col-md-4 text-center border">
     <div class="col-12 mt-3">
         <img class="img-fluid" alt="Image of @Model.Address" src="@Url.Action("GetResidenceImage", "Home", new { Id = Model.Id})" />
@@ -11,6 +14,21 @@
         <label asp-for="@Model.Area"></label>
         <h3>@Model.Area</h3>
     </div>
+    @if (!string.IsNullOrWhiteSpace(Model.Longitude) && !string.IsNullOrWhiteSpace(Model.Latitude))
+    {
+        <div class="col-12">
+            <div class="col-12">
+                <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="col-12">
+                <iframe width="250"
+                        height="150"
+                        frameborder="0" style="border:0"
+                        src="@url" allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    }
     <div class="col-12">
         <label asp-for="@Model.Rooms"></label>
         <span>@Model.Rooms</span>
