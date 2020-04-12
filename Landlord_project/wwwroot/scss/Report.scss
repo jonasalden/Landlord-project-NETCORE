@@ -1,7 +1,13 @@
-﻿#report-container{
+﻿#report-container {
     form {
         textarea {
-            min-height:150px;
+            min-height: 150px;
+        }
+
+        input[type='file'] {
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+            padding: 2px;
         }
     }
 }
