@@ -1,5 +1,6 @@
 ﻿using Landlord_project.Data;
 using Landlord_project.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
@@ -13,12 +14,14 @@ namespace Landlord_project.Controllers
     {
         #region Fields
         private readonly DataContext _context;
+        private IWebHostEnvironment _environment;
         #endregion
 
         #region Constructor
-        public TenantController(DataContext context)
+        public TenantController(DataContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
         #endregion
 
@@ -36,7 +39,7 @@ namespace Landlord_project.Controllers
                 model.Residences = new List<SelectListItem>();
                 foreach (var res in residences)
                 {
-                    model.Residences.Add(new SelectListItem {Text = res.Address, Value = res.Id.ToString()});
+                    model.Residences.Add(new SelectListItem { Text = res.Address, Value = res.Id.ToString() });
                 }
             }
 
@@ -49,36 +52,48 @@ namespace Landlord_project.Controllers
             if (!ModelState.IsValid)
                 return NotFound();
 
+            var imageDbName = string.Empty;
+
             if (model.Image != null && model.Image.Length > 0)
             {
                 model.ImageMimeType = model.Image.ContentType;
                 model.ImageName = Path.GetFileName(model.Image.FileName);
-
+                var imageCleanName = Path.GetFileNameWithoutExtension(model.Image.FileName);
                 using (var memoryStream = new MemoryStream())
                 {
                     model.Image.CopyTo(memoryStream);
                     model.ImageFile = memoryStream.ToArray();
                 }
 
-                var reportModel = new ResidenceReport
+                model.DateCreated = DateTime.Now;
+                var imagePath = @"images\reports\";
+                var imageExtension = Path.GetExtension(model.Image.FileName);
+                imageDbName = $"report_{imageCleanName}" + imageExtension;
+                var relativeImagePath = imagePath + imageDbName;
+                var absImagePath = Path.Combine(_environment.WebRootPath, relativeImagePath);
+
+                using (var fileStream = new FileStream(absImagePath, FileMode.Create))
                 {
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    Description = model.Description,
-                    Email = model.Email,
-                    ImageFile = model.ImageFile,
-                    ImageMimeType = model.ImageMimeType,
-                    ImageName = model.ImageName,
-                    Phone = model.Phone,
-                    DateCreated = DateTime.Now,
-                    ResidenceId = model.ResidenceId
-                };
-                _context.ResidenceReports.Add(reportModel);
-                _context.SaveChanges();
-                return View(nameof(Index));
+                    model.Image.CopyTo(fileStream);
+                }
             }
 
-            return null;
+            var reportModel = new ResidenceReport
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Description = model.Description,
+                Email = model.Email,
+                ImageFile = model.ImageFile ?? null,
+                ImageMimeType = model.ImageMimeType ?? null,
+                ImageName = imageDbName ?? null,
+                Phone = model.Phone,
+                ResidenceId = model.ResidenceId,
+                DateCreated = model.DateCreated
+            };
+            _context.ResidenceReports.Add(reportModel);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
         #endregion
     }
