@@ -5,7 +5,7 @@
 @section HeadSection{
     <link rel="stylesheet" href="~/node_modules/jquery-ui-dist/jquery-ui.css">
 }
-<div id="rental-list-container" class="row">
+<div id="rental-list-container" class="row no-gutters">
     <div class="col-12 mt-3 mb-3">
         <h1 class="display-4 mb-4">
             Lediga Hyresobjekt
@@ -24,12 +24,12 @@
     </div>
     <div id="rental-list-filters" class="col-12 mb-3 p-4">
         <div class="row">
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 mt-md-0 mt-3">
                 <label for="rental-rent-amount">Hyra:</label>
                 <span id="rental-rent-amount"></span>
                 <div id="rental-rent-slider"></div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 mt-md-0 mt-3">
                 <label for="rental-room-amount">Antal rum:</label>
                 <select name="rental-room-amount" id="rental-room-amount">
                     @for (int i = 1; i < Model.MaxRooms + 1; i++)
@@ -73,15 +73,14 @@
     </script>
     <script>
         $(document).ready(function () {
-            $("#rental-rent-slider").on("slidechange", function (event, ui)
-            {
+            $("#rental-rent-slider").on("slidechange", function (event, ui) {
                 var price = parseInt(ui.value);
                 var rooms = parseInt($("#rental-room-amount").val())
 
                 $.ajax({
                     url: "Home/FilterPrice",
                     type: "GET",
-                    data: { price, rooms},
+                    data: { price, rooms },
                     success: function (data) {
                         $('#rental-list-thumb-container').empty();
                         $('#rental-list-thumb-container').html(data);
@@ -93,7 +92,7 @@
             });
         });
     </script>
-<script>
+    <script>
     $(function () {
         var select = $("#rental-room-amount");
         var slider = $("<div id='rental-room-slider'></div>").insertAfter(select).slider({
@@ -144,5 +143,5 @@
             });
         });
     });
-</script>
+    </script>
 }

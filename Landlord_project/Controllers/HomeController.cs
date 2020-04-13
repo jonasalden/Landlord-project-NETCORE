@@ -74,6 +74,8 @@ namespace Landlord_project.Controllers
         public IActionResult RentalDetails(int id)
         {
             var residence = _context.Residences.FirstOrDefault(r => r.Id == id);
+            if (residence == null)
+                return View(null);
 
             var model = new ResidenceDetailModel
             {
@@ -91,7 +93,6 @@ namespace Landlord_project.Controllers
                 RentalPrice = residence.RentalPrice,
                 ZipCode = residence.ZipCode
             };
-
             return View(model);
         }
 
@@ -129,6 +130,18 @@ namespace Landlord_project.Controllers
                 }
             }
             return PartialView("_ResidenceThumb", model);
+        }
+
+        [HttpGet]
+        public IActionResult RentalApplication(int residenceId)
+        {
+            var address = _context.Residences.FirstOrDefault(re => re.Id == residenceId).Address;
+            var model = new ResidenceApplication
+            {
+                ResidenceId = residenceId,
+                ResidenceName = address
+            };
+            return PartialView("_GenericModal", model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

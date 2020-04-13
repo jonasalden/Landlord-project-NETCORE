@@ -23,5 +23,7 @@ namespace Landlord_project.Data
         public string CurrentLandLordPhone { get; set; }
         public string AdditionalText { get; set; }
         public bool AgreeOnTerms { get; set; }
+        public int ResidenceId { get; set; }
+        public string ResidenceName { get; set; }
     }
 }

@@ -1,6 +1,10 @@
 ﻿@model Landlord_project.Models.ResidenceDetailModel
 @{
-    var url = "https://www.google.com/maps/embed/v1/search?key=AIzaSyDOT7PZ6L-R64p3EDPgGZqwvSxUZQWan0Q&q=" + Model.Latitude + "," + Model.Longitude;
+    var url = string.Empty;
+    if (Model != null && !string.IsNullOrWhiteSpace(Model.Latitude) && !string.IsNullOrWhiteSpace(Model.Longitude))
+    {
+        url = "https://www.google.com/maps/embed/v1/search?key=AIzaSyDOT7PZ6L-R64p3EDPgGZqwvSxUZQWan0Q&q=" + Model.Latitude + "," + Model.Longitude;
+    }
 }
 <div id="rental-details-container" class="row justify-content-center">
     <div class="col-12 mt-3 mb-3">
@@ -83,10 +87,32 @@
             </div>
         </div>
     }
-<div class="col-12 text-center mt-3">
-    <button id="intresseanmalan" type="button" class="btn btn-dark" data-toggle="modal" data-target="#landlord-modal">
-        Intresseanmälan
-    </button>
+    <div class="col-12 text-center mt-3">
+        <button id="intresseanmalan" type="button" class="btn btn-dark" data-toggle="modal" data-target="#landlord-modal">
+            Intresseanmälan
+        </button>
+    </div>
 </div>
-</div>
-<partial name="_GenericModal" />
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#intresseanmalan').on('click', function () {
+                $.ajax({
+                    url: "/Home/RentalApplication/",
+                    type: "GET",
+                    data: { residenceId: @Model.Id },
+                    success: function (data) {
+                        $(data).insertAfter("#rental-details-container");
+                        $('#landlord-modal').modal('show')
+
+                        $('#landlord-modal').on('hidden.bs.modal', function (e) {
+                            $('#landlord-modal').modal('dispose')
+                            $('#landlord-modal').remove();
+                        })
+                    }
+                });
+            });
+        });
+    </script>
+}
