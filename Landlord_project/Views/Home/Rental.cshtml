@@ -9,7 +9,7 @@
     <div class="col-12 mt-3 mb-3">
         <h1 class="display-4 mb-4">
             Lediga hyresobjekt @if (Model.Residence.Any())
-            {@Model.NumResidences}
+            {<text>(</text>@Model.NumResidences<text>)</text>}
         </h1>
         <hr />
         <nav aria-label="breadcrumb">
@@ -20,12 +20,23 @@
         </nav>
     </div>
     <div id="rental-list-filters" class="col-12 mb-3 p-4">
-        <div class="col-12">
-            <label for="rental-rent-amount">Hyra:</label>
-            <span id="rental-rent-amount"></span>
-        </div>
-        <div class="col-sm-12 col-md-4">
-            <div id="slider"></div>
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <label for="rental-rent-amount">Hyra:</label>
+                <span id="rental-rent-amount"></span>
+                <div id="rental-rent-slider"></div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <label for="rental-room-amount">Antal rum:</label>
+                <select name="rental-room-amount" id="rental-room-amount">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                </select>
+            </div>
         </div>
     </div>
     <div class="col-12">
@@ -47,7 +58,7 @@
     <script src="~/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
     <script>
         $(function () {
-            $("#slider").slider({
+            $("#rental-rent-slider").slider({
                 range: "min",
                 value: parseInt(@Model.MinRent),
                 min: parseInt(@Model.MinRent),
@@ -56,37 +67,54 @@
                     $("#rental-rent-amount").text(ui.value + " kr");
                 }
             });
-            $("#rental-rent-amount").text($("#slider").slider("value") + " kr");
+            $("#rental-rent-amount").text($("#rental-rent-slider").slider("value") + " kr");
         });
     </script>
     <script>
         $(document).ready(function () {
-
-            $("#slider").on("slidechange", function (event, ui) {
+            $("#rental-rent-slider").on("slidechange", function (event, ui) {
                 var price = parseInt(ui.value);
-                console.log(ui.value);
-                //console.log(event);
-                //console.log(ui);
+                var rooms = parseInt($("#rental-room-amount").val())
 
                 $.ajax({
                     url: "Home/FilterPrice",
                     type: "GET",
-                    data: { price },
+                    data: { price, rooms},
                     success: function (data) {
-                        console.log(data);
-
-                        //if (data.residences.length > 0) {
-                            $('#rental-list-thumb-container').empty();
-
-                            $('#rental-list-thumb-container').html(data);
-                            //for (var i = 0; i < data.residences.length; i++) {
-                            //    console.log(data.residences[i].address);
-                            //    $('#rental-list-thumb-container').append(data.residences[i].address);
-                            //}
-                        //}
+                        $('#rental-list-thumb-container').empty();
+                        $('#rental-list-thumb-container').html(data);
                     }
                 });
             });
         });
     </script>
+<script>
+    $(function () {
+        var select = $("#rental-room-amount");
+        var slider = $("<div id='rental-room-slider'></div>").insertAfter(select).slider({
+            min: 1,
+            max: 6,
+            range: "min",
+            value: select[0].selectedIndex + 1,
+            slide: function (event, ui) {
+                select[0].selectedIndex = ui.value - 1;
+            }
+        });
+        $("#rental-room-amount").on("change", function () {
+            slider.slider("value", this.selectedIndex + 1);
+
+            var price = parseInt($("rental-rent-slider").val());
+            var rooms = parseInt(this.selectedIndex + 1);
+            $.ajax({
+                url: "Home/FilterPrice",
+                type: "GET",
+                data: { rooms, price },
+                success: function (data) {
+                    $('#rental-list-thumb-container').empty();
+                    $('#rental-list-thumb-container').html(data);
+                }
+            });
+        });
+    });
+</script>
 }
