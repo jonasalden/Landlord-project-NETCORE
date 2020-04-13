@@ -32,9 +32,12 @@
             <div class="col-sm-12 col-md-4 mt-md-0 mt-3">
                 <label for="rental-room-amount">Antal rum:</label>
                 <select name="rental-room-amount" id="rental-room-amount">
-                    @for (int i = 1; i < Model.MaxRooms + 1; i++)
+                    @if (Model.MaxRooms >= 0)
                     {
-                        <option>@i</option>
+                        for (int i = 1; i < Model.MaxRooms + 1; i++)
+                        {
+                            <option>@i</option>
+                        }
                     }
                 </select>
             </div>

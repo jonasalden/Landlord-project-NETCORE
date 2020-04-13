@@ -9,13 +9,18 @@ namespace Landlord_project.Data.Validators
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class FileExtensionAttribute : ValidationAttribute
     {
+        #region Fields
         private List<string> AllowedExt { get; set; }
+        #endregion
 
+        #region Constructor
         public FileExtensionAttribute(string fileExt)
         {
             AllowedExt = fileExt.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
+        #endregion
 
+        #region Methods
         public override bool IsValid(object value)
         {
             var file = (IFormFile)value;
@@ -28,5 +33,6 @@ namespace Landlord_project.Data.Validators
             }
             return true;
         }
+        #endregion
     }
 }

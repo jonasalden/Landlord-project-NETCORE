@@ -1,5 +1,4 @@
-﻿using Landlord_project.Data;
-using Landlord_project.Data.Validators;
+﻿using Landlord_project.Data.Validators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;

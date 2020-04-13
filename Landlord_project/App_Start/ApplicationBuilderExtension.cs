@@ -19,7 +19,6 @@ namespace Landlord_project.App_Start
             applicationBuilder.UseStaticFiles(options);
 
             return applicationBuilder;
-
         }
     }
 }

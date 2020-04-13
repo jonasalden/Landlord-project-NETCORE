@@ -14,7 +14,7 @@ namespace Landlord_project.Controllers
     {
         #region Fields
         private readonly DataContext _context;
-        private IWebHostEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
         #endregion
 
         #region Constructor

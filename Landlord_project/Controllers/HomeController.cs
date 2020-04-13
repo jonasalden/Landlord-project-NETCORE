@@ -14,16 +14,14 @@ namespace Landlord_project.Controllers
     public class HomeController : Controller
     {
         #region Fields
-        private readonly ILogger<HomeController> _logger;
         private readonly DataContext _context;
         private IWebHostEnvironment _environment;
         private readonly string folderPath = "\\images\\";
         #endregion
 
         #region Constructor
-        public HomeController(ILogger<HomeController> logger, DataContext context, IWebHostEnvironment environment)
+        public HomeController(DataContext context, IWebHostEnvironment environment)
         {
-            _logger = logger;
             _context = context;
             _environment = environment;
         }
@@ -60,13 +58,18 @@ namespace Landlord_project.Controllers
                 model.NumResidences = model.Residence.Count();
 
                 var rentalPrices = model.Residence.Select(re => re.RentalPrice).OrderBy(prices => prices);
-                model.MinRent = rentalPrices.FirstOrDefault();
-                model.MaxRent = rentalPrices.OrderByDescending(prices => prices).FirstOrDefault();
+                if (rentalPrices.Any())
+                {
+                    model.MinRent = rentalPrices.FirstOrDefault();
+                    model.MaxRent = rentalPrices.OrderByDescending(prices => prices).FirstOrDefault();
+                }
 
                 var rentalRooms = model.Residence.Select(r => r.Rooms).OrderByDescending(room => room);
-                model.MaxRooms = rentalRooms.FirstOrDefault();
+                if (rentalRooms.Any())
+                {
+                    model.MaxRooms = rentalRooms.FirstOrDefault();
+                }
             }
-
             return View(model);
         }
 

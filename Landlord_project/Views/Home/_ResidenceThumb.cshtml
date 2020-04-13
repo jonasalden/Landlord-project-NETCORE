@@ -1,47 +1,50 @@
 ﻿@model List<Landlord_project.Models.ResidenceModel>
 
-@foreach (var res in Model)
+@if (Model.Any())
 {
-    <div class="col-sm-12 mb-3 residence-thumb">
-        <div class="row no-gutters">
-            <div class="col-sm-6">
-                <img class="img-fluid" alt="Image of @res.Address" src="@Url.Action("GetResidenceImage", "Home", new { Id = res.Id})" />
-            </div>
-            <div class="col-sm-6 border p-2">
-                <div class="col-sm-12">
-                    <label asp-for="@res.Address"></label>
-                    <span>@res.Address</span>
+    @foreach (var res in Model)
+    {
+        <div class="col-sm-12 mb-3 residence-thumb">
+            <div class="row no-gutters">
+                <div class="col-sm-6">
+                    <img class="img-fluid" alt="Image of @res.Address" src="@Url.Action("GetResidenceImage", "Home", new { Id = res.Id})" />
                 </div>
-                <div class="col-sm-12">
-                    <label asp-for="@res.Area"></label>
-                    <span>@res.Area</span>
-                </div>
-                <div class="col-sm-12">
-                    <label asp-for="@res.Rooms"></label>
-                    <span>@res.Rooms st</span>
-                </div>
-                <div class="col-sm-12">
-                    <label asp-for="@res.Size"></label>
-                    <span>@res.Size m²</span>
-                </div>
-                <div class="col-sm-12">
-                    <label asp-for="@res.RentalPrice"></label>
-                    <span>@res.RentalPrice kr</span>
-                </div>
-                <div class="col-sm-12">
-                    <i class="far fa-calendar-alt"></i>
-                    <label asp-for="@res.AvailableFrom"></label>
-                    <span>@res.AvailableFrom</span>
-                </div>
-                <div class="row m-0 rental-list-buttons">
-                    <div class="col-12 mb-1">
-                        <a class="btn btn-light" href="@Url.Action("RentalDetails", "Home", new { id = res.Id })">Detaljer</a>
+                <div class="col-sm-6 border p-2">
+                    <div class="col-sm-12">
+                        <label asp-for="@res.Address"></label>
+                        <span>@res.Address</span>
                     </div>
-                    <div class="col-12 mb-1">
-                        <a class="btn btn-light" href="@Url.Action("RentalDetails", "Home", new { id = res.Id })#intresseanmalan">Intresseanmälan</a>
+                    <div class="col-sm-12">
+                        <label asp-for="@res.Area"></label>
+                        <span>@res.Area</span>
+                    </div>
+                    <div class="col-sm-12">
+                        <label asp-for="@res.Rooms"></label>
+                        <span>@res.Rooms st</span>
+                    </div>
+                    <div class="col-sm-12">
+                        <label asp-for="@res.Size"></label>
+                        <span>@res.Size m²</span>
+                    </div>
+                    <div class="col-sm-12">
+                        <label asp-for="@res.RentalPrice"></label>
+                        <span>@res.RentalPrice kr</span>
+                    </div>
+                    <div class="col-sm-12">
+                        <i class="far fa-calendar-alt"></i>
+                        <label asp-for="@res.AvailableFrom"></label>
+                        <span>@res.AvailableFrom</span>
+                    </div>
+                    <div class="row m-0 rental-list-buttons">
+                        <div class="col-12 mb-1">
+                            <a class="btn btn-light" href="@Url.Action("RentalDetails", "Home", new { id = res.Id })">Detaljer</a>
+                        </div>
+                        <div class="col-12 mb-1">
+                            <a class="btn btn-light" href="@Url.Action("RentalDetails", "Home", new { id = res.Id })#intresseanmalan">Intresseanmälan</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
 }
