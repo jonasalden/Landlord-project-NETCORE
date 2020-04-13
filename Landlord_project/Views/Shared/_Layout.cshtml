@@ -1,7 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-@await Html.PartialAsync("_Head") 
+    @await Html.PartialAsync("_Head")
+    @RenderSection("HeadSection", required: false)
 </head>
 <body>
     <header>

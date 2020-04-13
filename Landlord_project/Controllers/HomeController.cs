@@ -38,7 +38,7 @@ namespace Landlord_project.Controllers
         public IActionResult Rental()
         {
             var residences = _context.Residences.Include(x => x.ResidenceReports).ToList();
-            var model = new List<ResidenceModel>();
+            var model = new RentalModel();
 
             if (residences.Any())
             {
@@ -55,11 +55,15 @@ namespace Landlord_project.Controllers
                         Size = res.Size,
                         RentalPrice = res.RentalPrice,
                     };
-                    model.Add(residence);
+                    model.Residence.Add(residence);
                 }
+                model.NumResidences = model.Residence.Count();
+
+                var rentalPrices = model.Residence.Select(x => x.RentalPrice).OrderBy(x => x);
+                model.MinRent = rentalPrices.FirstOrDefault();
+                model.MaxRent = rentalPrices.OrderByDescending(x => x).FirstOrDefault();
             }
 
-            ViewData["ResidenceCount"] = $"({model.Count()})";
             return View(model);
         }
 
@@ -86,6 +90,33 @@ namespace Landlord_project.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult FilterPrice(int price)
+        {
+            var residences = _context.Residences.Where(re => re.RentalPrice >= price).ToList();
+            var model = new List<ResidenceModel>();
+            if (residences.Any())
+            {
+                foreach (var res in residences)
+                {
+                    var residence = new ResidenceModel
+                    {
+                        Id = res.Id,
+                        Address = res.Address,
+                        Area = res.Area,
+                        AvailableFrom = res.ShowFrom.ToString("dd/MM/yyyy"),
+                        Image = res.ImageName,
+                        Rooms = res.Rooms,
+                        Size = res.Size,
+                        RentalPrice = res.RentalPrice,
+                    };
+                    model.Add(residence);
+                }
+            }
+            return PartialView("_ResidenceThumb", model);
+            //return Json(new { success = true, residences });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

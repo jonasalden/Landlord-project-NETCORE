@@ -1,12 +1,15 @@
-﻿@model List<Landlord_project.Models.ResidenceModel>
+﻿@model Landlord_project.Models.RentalModel
 @{
     ViewData["Title"] = "Bostäder";
 }
-<div class="row">
+@section HeadSection{
+    <link rel="stylesheet" href="~/node_modules/jquery-ui-dist/jquery-ui.css">
+}
+<div id="rental-list-container" class="row">
     <div class="col-12 mt-3 mb-3">
         <h1 class="display-4 mb-4">
-            Lediga hyresobjekt @if (Model.Any())
-            {@ViewData["ResidenceCount"]}
+            Lediga hyresobjekt @if (Model.Residence.Any())
+            {@Model.NumResidences}
         </h1>
         <hr />
         <nav aria-label="breadcrumb">
@@ -16,17 +19,20 @@
             </ol>
         </nav>
     </div>
-    <div class="col-12">
-
+    <div id="rental-list-filters" class="col-12 mb-3 p-4">
+        <div class="col-12">
+            <label for="rental-rent-amount">Hyra:</label>
+            <span id="rental-rent-amount"></span>
+        </div>
+        <div class="col-sm-12 col-md-4">
+            <div id="slider"></div>
+        </div>
     </div>
     <div class="col-12">
-        <div id="rental-list-container" class="row no-gutters">
-            @if (Model.Any())
+        <div id="rental-list-thumb-container" class="row no-gutters">
+            @if (Model.Residence.Any())
             {
-                @foreach (var residence in Model)
-                {
-                    @await Html.PartialAsync("_ResidenceThumb", residence)
-                }
+                @await Html.PartialAsync("_ResidenceThumb", Model.Residence)
             }
             else
             {
@@ -37,3 +43,50 @@
         </div>
     </div>
 </div>
+@section scripts {
+    <script src="~/node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $("#slider").slider({
+                range: "min",
+                value: parseInt(@Model.MinRent),
+                min: parseInt(@Model.MinRent),
+                max: parseInt(@Model.MaxRent),
+                slide: function (event, ui) {
+                    $("#rental-rent-amount").text(ui.value + " kr");
+                }
+            });
+            $("#rental-rent-amount").text($("#slider").slider("value") + " kr");
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+
+            $("#slider").on("slidechange", function (event, ui) {
+                var price = parseInt(ui.value);
+                console.log(ui.value);
+                //console.log(event);
+                //console.log(ui);
+
+                $.ajax({
+                    url: "Home/FilterPrice",
+                    type: "GET",
+                    data: { price },
+                    success: function (data) {
+                        console.log(data);
+
+                        //if (data.residences.length > 0) {
+                            $('#rental-list-thumb-container').empty();
+
+                            $('#rental-list-thumb-container').html(data);
+                            //for (var i = 0; i < data.residences.length; i++) {
+                            //    console.log(data.residences[i].address);
+                            //    $('#rental-list-thumb-container').append(data.residences[i].address);
+                            //}
+                        //}
+                    }
+                });
+            });
+        });
+    </script>
+}
