@@ -36,8 +36,9 @@ namespace Landlord_project.Models
         public string Description { get; set; }
         public DateTime DateCreated { get; set; }
 
-        [FileExtensionAttribute(fileExtensions: "jpg,jpeg,png,tif", ErrorMessage = "Filformat som är tillåtna (jpg,jpeg,png,tif)")]
+        [FileExtensionAttribute(fileExt: "jpg,jpeg,png,tif", ErrorMessage = "Filformat som är tillåtna (jpg,jpeg,png,tif)")]
         [Display(Name = "Bifoga bild")]
+        [DataType(DataType.Upload)]
         public IFormFile Image { get; set; }
         public string ImageName { get; set; }
         public byte[] ImageFile { get; set; }
@@ -45,5 +46,11 @@ namespace Landlord_project.Models
         [Display(Name = "Adress")]
         public int ResidenceId { get; set; }
         public List<SelectListItem> Residences { get; set; }
+        [Display(Name = "Fastighetsnummer")]
+        [Required(ErrorMessage = "Du måste ange korrekt fastighetsnummer")]
+        [StringLength(10, MinimumLength = 1, ErrorMessage = "Ange giltigt fastighetsnummer")]
+        public string HousingNumber { get; set; }
+        [Display(Name = "Tillgång med huvudnyckel")]
+        public bool CanAccessResidence { get; set; }
     }
 }

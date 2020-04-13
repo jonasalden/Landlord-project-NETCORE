@@ -9,6 +9,7 @@ namespace Landlord_project.Data
         public string Estate { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
+        public int ZipCode { get; set; }
         public decimal RentalPrice { get; set; }
         public int Rooms { get; set; }
         public int Size { get; set; }
@@ -30,6 +31,8 @@ namespace Landlord_project.Data
         public ICollection<ResidenceReport> ResidenceReports { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
-
+        public bool HasElevator { get; set; }
+        public bool HasBalcony { get; set; }
+        public bool HasCourtyard { get; set; }
     }
 }

@@ -54,12 +54,37 @@ namespace Landlord_project.Controllers
                         Rooms = res.Rooms,
                         Size = res.Size,
                         RentalPrice = res.RentalPrice,
-                        Latitude = res.Latitude,
-                        Longitude = res.Longitude
                     };
                     model.Add(residence);
                 }
             }
+
+            ViewData["ResidenceCount"] = $"({model.Count()})";
+            return View(model);
+        }
+
+        [Route("hyresledigt/detaljer/{id}")]
+        public IActionResult RentalDetails(int id)
+        {
+            var residence = _context.Residences.FirstOrDefault(r => r.Id == id);
+
+            var model = new ResidenceDetailModel
+            {
+                Id = residence.Id,
+                Address = residence.Address,
+                DateBuilt = residence.DateBuilt,
+                DateRenovated = residence.DateRenovated,
+                Area = residence.Area,
+                FloorNumber = residence.FloorNumber,
+                HousingNumber = residence.HousingNumber,
+                Latitude = residence.Latitude,
+                Longitude = residence.Longitude,
+                Rooms = residence.Rooms,
+                Size = residence.Size,
+                RentalPrice = residence.RentalPrice,
+                ZipCode = residence.ZipCode
+            };
+
             return View(model);
         }
 

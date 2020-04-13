@@ -1,0 +1,80 @@
+﻿@model Landlord_project.Models.ResidenceDetailModel
+@{
+    var url = "https://www.google.com/maps/embed/v1/search?key=AIzaSyDOT7PZ6L-R64p3EDPgGZqwvSxUZQWan0Q&q=" + Model.Latitude + "," + Model.Longitude;
+}
+
+<div id="rental-details-container" class="row justify-content-center">
+    <div class="col-12 mt-3 mb-3">
+        <h1 class="display-4">@Model.Address</h1>
+        <hr />
+    </div>
+    <div class="col-12 mb-3">
+        <img src="@Url.Action("GetResidenceImage","Home", new {id = Model.Id})" />
+    </div>
+    <div class="col-12 mb-3">
+        @Model.Address is simply dummy text of the printing and typesetting industry.
+        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <label for="info-box">Info</label>
+        <div class="col-12 p-0 border" id="info-box">
+            <div class="col-12">
+                <label asp-for="Area"></label>
+                <span name="Area">@Model.Area</span>
+            </div>
+            <div class="col-12">
+                <label asp-for="HousingNumber"></label>
+                <span name="HousingNumber">@Model.HousingNumber</span>
+            </div>
+            <div class="col-12">
+                <label asp-for="Address"></label>
+                <span name="Address">@Model.Address</span>
+                <span name="Address">@Model.ZipCode</span>
+                <span name="Address">@Model.Area</span>
+            </div>
+            <div class="col-12">
+                <label asp-for="Rooms"></label>
+                <span name="Rooms">@Model.Rooms och kök</span>
+            </div>
+            <div class="col-12">
+                <label asp-for="RentalPrice"></label>
+                <span name="RentalPrice">@Model.RentalPrice kr</span>
+            </div>
+            <div class="col-12">
+                <label asp-for="FloorNumber"></label>
+                <span name="FloorNumber">@Model.FloorNumber</span>
+            </div>
+            <div class="col-12">
+                <label asp-for="DateBuilt"></label>
+                <span name="DateBuilt">@Model.DateBuilt</span>
+            </div>
+            @if (Model.DateRenovated != null)
+            {
+                <div class="col-12">
+                    <label asp-for="DateRenovated"></label>
+                    <span name="DateRenovated">@Model.DateRenovated</span>
+                </div>
+            }
+        </div>
+    </div>
+    @if (!string.IsNullOrWhiteSpace(Model.Longitude) && !string.IsNullOrWhiteSpace(Model.Latitude))
+    {
+        <div class="col-sm-12 col-md-6">
+            <label for="map">Karta</label>
+            <div class="col-12 p-0" id="map">
+                <iframe width="100%"
+                        height="100%"
+                        frameborder="0" style="border:0"
+                        src="@url" allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    }
+    <div class="col-12">
+        <h1 id="intresseanmalan" class="display-4 text-center">Intresseanmälan</h1>
+    </div>
+</div>

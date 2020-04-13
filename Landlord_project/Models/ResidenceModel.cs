@@ -18,7 +18,5 @@ namespace Landlord_project.Models
         public decimal RentalPrice { get; set; }
         [Display(Name = "Tillgänglig från:")]
         public string AvailableFrom { get; set; }
-        public string Longitude { get; set; }
-        public string Latitude { get; set; }
     }
 }

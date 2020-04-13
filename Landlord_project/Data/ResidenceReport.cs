@@ -21,5 +21,7 @@ namespace Landlord_project.Data
         public string ImageMimeType { get; set; }
         public Residence Residence { get; set; }
         public int ResidenceId { get; set; }
+        public string HousingNumber { get; set; }
+        public bool CanAccessResidence { get; set; }
     }
 }

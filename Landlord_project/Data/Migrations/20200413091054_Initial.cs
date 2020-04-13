@@ -16,6 +16,7 @@ namespace Landlord_project.Data.Migrations
                     Estate = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
+                    ZipCode = table.Column<int>(nullable: false),
                     RentalPrice = table.Column<decimal>(type: "decimal(6, 2)", nullable: false),
                     Rooms = table.Column<int>(nullable: false),
                     Size = table.Column<int>(nullable: false),
@@ -34,7 +35,10 @@ namespace Landlord_project.Data.Migrations
                     ImageFile = table.Column<byte[]>(nullable: true),
                     ImageMimeType = table.Column<string>(nullable: true),
                     Longitude = table.Column<string>(nullable: true),
-                    Latitude = table.Column<string>(nullable: true)
+                    Latitude = table.Column<string>(nullable: true),
+                    HasElevator = table.Column<bool>(nullable: false),
+                    HasBalcony = table.Column<bool>(nullable: false),
+                    HasCourtyard = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,6 +57,8 @@ namespace Landlord_project.Data.Migrations
                     Phone = table.Column<string>(nullable: true),
                     Age = table.Column<int>(nullable: false),
                     Salary = table.Column<decimal>(type: "decimal(7, 2)", nullable: false),
+                    SocialSecurityNumber = table.Column<string>(nullable: true),
+                    Employer = table.Column<string>(nullable: true),
                     HasResidence = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -75,7 +81,9 @@ namespace Landlord_project.Data.Migrations
                     ImageName = table.Column<string>(nullable: true),
                     ImageFile = table.Column<byte[]>(nullable: true),
                     ImageMimeType = table.Column<string>(nullable: true),
-                    ResidenceId = table.Column<int>(nullable: false)
+                    ResidenceId = table.Column<int>(nullable: false),
+                    HousingNumber = table.Column<string>(nullable: true),
+                    CanAccessResidence = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -13,7 +13,8 @@ namespace Landlord_project.Data
         public string Phone { get; set; }
         public int Age { get; set; }
         public decimal Salary { get; set; }
-        //public string FullName { get { return FirstName + " " + LastName; } } // VyModel ist.
+        public string SocialSecurityNumber { get; set; }
+        public string Employer { get; set; }
         public bool HasResidence { get; set; }
         public ICollection<ResidenceAssignment> ResidenceAssignments { get; set; }
     }

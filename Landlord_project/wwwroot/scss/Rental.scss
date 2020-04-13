@@ -1,0 +1,25 @@
+﻿#rental-details-container {
+    #info-box {
+        label {
+            font-weight: 600;
+        }
+    }
+
+    #map {
+        iframe {
+            min-height: 350px;
+        }
+    }
+}
+
+#rental-list-container {
+    label {
+        font-weight: 600;
+    }
+
+    .rental-list-buttons {
+        .btn-light {
+            width: 100% !important;
+        }
+    }
+}

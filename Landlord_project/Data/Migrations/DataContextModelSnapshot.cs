@@ -56,6 +56,15 @@ namespace Landlord_project.Data.Migrations
                     b.Property<int>("FloorNumber")
                         .HasColumnType("int");
 
+                    b.Property<bool>("HasBalcony")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasCourtyard")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasElevator")
+                        .HasColumnType("bit");
+
                     b.Property<string>("HousingNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -92,6 +101,9 @@ namespace Landlord_project.Data.Migrations
                     b.Property<int>("TypeOfResidence")
                         .HasColumnType("int");
 
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Residence");
@@ -119,6 +131,9 @@ namespace Landlord_project.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("CanAccessResidence")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
@@ -129,6 +144,9 @@ namespace Landlord_project.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HousingNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("ImageFile")
@@ -169,6 +187,9 @@ namespace Landlord_project.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Employer")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -183,6 +204,9 @@ namespace Landlord_project.Data.Migrations
 
                     b.Property<decimal>("Salary")
                         .HasColumnType("decimal(7, 2)");
+
+                    b.Property<string>("SocialSecurityNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -9,24 +9,23 @@ namespace Landlord_project.Data.Validators
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class FileExtensionAttribute : ValidationAttribute
     {
-        private List<string> AllowedExtensions { get; set; }
+        private List<string> AllowedExt { get; set; }
 
-        public FileExtensionAttribute(string fileExtensions)
+        public FileExtensionAttribute(string fileExt)
         {
-            AllowedExtensions = fileExtensions.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            AllowedExt = fileExt.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
         }
 
         public override bool IsValid(object value)
         {
-            IFormFile file = value as IFormFile;
+            var file = (IFormFile)value;
 
             if (file != null)
             {
                 var fileName = file.FileName;
 
-                return AllowedExtensions.Any(y => fileName.EndsWith(y));
+                return AllowedExt.Any(str => fileName.EndsWith(str));
             }
-
             return true;
         }
     }

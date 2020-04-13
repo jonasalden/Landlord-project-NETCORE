@@ -89,11 +89,19 @@ namespace Landlord_project.Controllers
                 ImageName = imageDbName ?? null,
                 Phone = model.Phone,
                 ResidenceId = model.ResidenceId,
-                DateCreated = model.DateCreated
+                DateCreated = model.DateCreated,
+                CanAccessResidence = model.CanAccessResidence,
+                HousingNumber = model.HousingNumber
             };
             _context.ResidenceReports.Add(reportModel);
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
+        }
+
+        [Route("faq")]
+        public IActionResult Faq()
+        {
+            return View();
         }
         #endregion
     }
