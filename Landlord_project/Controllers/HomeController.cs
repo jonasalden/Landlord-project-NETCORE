@@ -95,7 +95,17 @@ namespace Landlord_project.Controllers
         [HttpGet]
         public IActionResult FilterPrice(int price, int rooms)
         {
-            var residences = _context.Residences.Where(re => re.RentalPrice >= price).ToList();
+            var query = (IQueryable<Residence>)_context.Residences;
+
+            if (price >= 0)
+                query = query.Where(re => re.RentalPrice >= price);
+            if (rooms >= 1)
+            {
+                query = query.Where(re => re.Rooms >= rooms);
+            }
+
+            var residences = query.ToList();
+
             var model = new List<ResidenceModel>();
             if (residences.Any())
             {
@@ -116,8 +126,6 @@ namespace Landlord_project.Controllers
                 }
             }
 
-            if (rooms > 0)
-            model = model.Where(re => re.Rooms >= rooms).ToList();
 
             return PartialView("_ResidenceThumb", model);
         }
