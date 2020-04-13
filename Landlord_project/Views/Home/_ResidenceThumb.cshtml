@@ -2,7 +2,7 @@
 
 @foreach (var res in Model)
 {
-    <div class="col-sm-12 mb-3">
+    <div class="col-sm-12 mb-3 residence-thumb">
         <div class="row no-gutters">
             <div class="col-sm-6">
                 <img class="img-fluid" alt="Image of @res.Address" src="@Url.Action("GetResidenceImage", "Home", new { Id = res.Id})" />

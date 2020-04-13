@@ -59,9 +59,12 @@ namespace Landlord_project.Controllers
                 }
                 model.NumResidences = model.Residence.Count();
 
-                var rentalPrices = model.Residence.Select(x => x.RentalPrice).OrderBy(x => x);
+                var rentalPrices = model.Residence.Select(re => re.RentalPrice).OrderBy(prices => prices);
                 model.MinRent = rentalPrices.FirstOrDefault();
-                model.MaxRent = rentalPrices.OrderByDescending(x => x).FirstOrDefault();
+                model.MaxRent = rentalPrices.OrderByDescending(prices => prices).FirstOrDefault();
+
+                var rentalRooms = model.Residence.Select(r => r.Rooms).OrderByDescending(room => room);
+                model.MaxRooms = rentalRooms.FirstOrDefault();
             }
 
             return View(model);
@@ -125,8 +128,6 @@ namespace Landlord_project.Controllers
                     model.Add(residence);
                 }
             }
-
-
             return PartialView("_ResidenceThumb", model);
         }
 

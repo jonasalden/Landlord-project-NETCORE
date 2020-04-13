@@ -11,6 +11,7 @@ namespace Landlord_project.Models
         public int NumResidences { get; set; }
         public decimal MinRent { get; set; }
         public decimal MaxRent { get; set; }
+        public int MaxRooms { get; set; }
 
         public RentalModel()
         {
