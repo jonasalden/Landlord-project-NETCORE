@@ -17,13 +17,16 @@
     <div class="col-12 mb-3">
         <img src="@Url.Action("GetResidenceImage","Home", new {id = Model.Id})" />
     </div>
-    <div class="col-12 mb-3">
-        @Model.Address is simply dummy text of the printing and typesetting industry.
-        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-        It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-        It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-        and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+    <div class="col-12">
+        <label for="description-box">Beskrivning</label>
+        <div class="col-12 mb-3 p-0" id="description-box">
+            @Model.Address is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </div>
     </div>
     <div class="col-sm-12 col-md-6">
         <label for="info-box">Info</label>
@@ -81,12 +84,9 @@
         </div>
     }
 <div class="col-12 text-center mt-3">
-   @* <h1 id="intresseanmalan" class="display-4 text-center">Intresseanmälan</h1>*@
     <button id="intresseanmalan" type="button" class="btn btn-dark" data-toggle="modal" data-target="#landlord-modal">
         Intresseanmälan
     </button>
 </div>
-
 </div>
-
 <partial name="_GenericModal" />

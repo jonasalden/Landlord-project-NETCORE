@@ -8,6 +8,10 @@
             .dropdown-divider {
                 margin: 0;
             }
+
+            @media (max-width: 575.98px) {
+                border: none !important;
+            }
         }
 
         .dropdown-toggle {
@@ -17,7 +21,6 @@
                 content: "\f078";
                 border: 0;
                 position: absolute;
-                top: 28%;
                 font-size: small;
             }
         }
