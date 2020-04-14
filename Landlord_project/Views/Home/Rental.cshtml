@@ -77,7 +77,7 @@
     <script>
         $(document).ready(function () {
             $("#rental-rent-slider").on("slidechange", function (event, ui) {
-                LoadingScreen(true);
+                //LoadingScreen(true);
                 var price = parseInt(ui.value);
                 var rooms = parseInt($("#rental-room-amount").val())
 
@@ -91,7 +91,7 @@
 
                         var numItems = $('#rental-list-thumb-container .residence-thumb').length;
                         $('#rental-list-total').text("(" + parseInt(numItems) + ")");
-                        LoadingScreen(false);
+                        //LoadingScreen(false);
                     }
                 });
             });
@@ -110,7 +110,7 @@
             }
         });
         $("#rental-room-amount").on("change", function () {
-            LoadingScreen(true);
+            //LoadingScreen(true);
 
             slider.slider("value", this.selectedIndex + 1);
 
@@ -127,15 +127,14 @@
 
                     var numItems = $('#rental-list-thumb-container .residence-thumb').length;
                     $('#rental-list-total').text("(" + parseInt(numItems) + ")");
-                    LoadingScreen(false);
+                    //LoadingScreen(false);
                 }
             });
         });
 
         $("#rental-room-slider").on("slidestop", function (event, ui)
         {
-            LoadingScreen(true);
-
+            //LoadingScreen(true);
             var price = parseInt($("#rental-rent-slider").slider("value"));
             var rooms = parseInt(ui.value);
 
@@ -150,7 +149,7 @@
                     var numItems = $('#rental-list-thumb-container .residence-thumb').length;
                     $('#rental-list-total').text("(" + parseInt(numItems) + ")");
 
-                    LoadingScreen(false);
+                    //LoadingScreen(false);
                 }
             });
         });

@@ -1,50 +1,146 @@
 ﻿@model Landlord_project.Data.ResidenceApplication
- 
-<div class="modal fade" id="landlord-modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+
+<div class="modal" id="landlord-modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="border:0;">
                 <h5 id="modal-title">Ansökan till @Model.ResidenceName</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-controller="Home" asp-action="RentalApplication" method="POST">
-                    <input asp-for="ResidenceId" hidden/>
-                    <div class="form-group">
-                        <div class="row justify-content-center">
-                            <div class="col-4">
-                                <label asp-for="Email"></label>
-                                <input asp-for="Email" class="form-control" />
-                                <span asp-validation-for="Email"></span>
-                            </div>
-                            <div class="col-4">
-                                <label asp-for="Phone"></label>
-                                <input asp-for="Phone" class="form-control" />
-                                <span asp-validation-for="Phone"></span>
-                            </div>
-                        </div>
+                <nav class="mb-3">
+                    <div class="nav nav-tabs" id="rental-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Profil</a>
+                        <a class="nav-item nav-link" id="nav-work-tab" data-toggle="tab" href="#nav-work" role="tab" aria-controls="nav-work" aria-selected="true">Arbetsförhållande</a>
+                        <a class="nav-item nav-link disabled" id="nav-cotenant-tab" data-toggle="tab" href="#nav-cotenant" role="tab" aria-controls="nav-cotenant" aria-selected="true">Medsökande</a>
+                        <a class="nav-item nav-link" id="nav-additional-tab" data-toggle="tab" href="#nav-additional" role="tab" aria-controls="nav-additional" aria-selected="true">Övrigt</a>
                     </div>
-                    <div class="form-group">
-                        <div class="row justify-content-center">
-                            <div class="col-4">
-                                <label asp-for="FirstName"></label>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    @*  <form asp-controller="Home" asp-action="RentalApplication" method="POST">  DETTA FUNKAR INTE. GÖR VIA JQUERY*@
+                    <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="form-group row justify-content-center">
+                            <label asp-for="FirstName" class="col-6 col-form-label"></label>
+                            <label asp-for="LastName" class="col-6 col-form-label"></label>
+                            <div class="col-6">
                                 <input asp-for="FirstName" class="form-control" />
                                 <span asp-validation-for="FirstName"></span>
                             </div>
-                            <div class="col-4">
-                                <label asp-for="LastName"></label>
+                            <div class="col-6">
                                 <input asp-for="LastName" class="form-control" />
                                 <span asp-validation-for="LastName"></span>
                             </div>
                         </div>
+                        <div class="form-group row justify-content-center">
+                            <label asp-for="SocialSecurityNumber" class="col-6 col-form-label"></label>
+                            <label asp-for="Age" class="col-6 col-form-label"></label>
+                            <div class="col-6">
+                                <input asp-for="SocialSecurityNumber" class="form-control" />
+                                <span asp-validation-for="SocialSecurityNumber"></span>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="Age" class="form-control" />
+                                <span asp-validation-for="Age"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label asp-for="Email" class="col-6 col-form-label"></label>
+                            <label asp-for="Phone" class="col-6 col-form-label"></label>
+                            <div class="col-6">
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email"></span>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="Phone" class="form-control" />
+                                <span asp-validation-for="Phone"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label asp-for="Address" class="col-6 col-form-label"></label>
+                            <label asp-for="ZipCode" class="col-3 col-form-label"></label>
+                            <label asp-for="City" class="col-3 col-form-label"></label>
+                            <div class="col-6">
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address"></span>
+                            </div>
+                            <div class="col-3">
+                                <input asp-for="ZipCode" class="form-control" />
+                                <span asp-validation-for="ZipCode"></span>
+                            </div>
+                            <div class="col-3">
+                                <input asp-for="City" class="form-control" />
+                                <span asp-validation-for="City"></span>
+                            </div>
+                        </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
-                <button type="button" class="btn btn-primary">Skicka</button>
+                    <div class="tab-pane fade" id="nav-work" role="tabpanel" aria-labelledby="nav-work-tab">
+                        <div class="form-group row justify-content-center">
+                            <label asp-for="Salary" class="col-12 col-form-label"></label>
+                            <div class="col-12">
+                                <input asp-for="Salary" class="form-control" />
+                                <span asp-validation-for="Salary"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label asp-for="Employer" class="col-12 col-form-label"></label>
+                            <div class="col-12">
+                                <input asp-for="Employer" class="form-control" />
+                                <span asp-validation-for="Employer"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label asp-for="CurrentWork" class="col-12 col-form-label"></label>
+                            <div class="col-12">
+                                <input asp-for="CurrentWork" class="form-control" />
+                                <span asp-validation-for="CurrentWork"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-cotenant" role="tabpanel" aria-labelledby="nav-cotenant-tab">
+                        Co-tenant
+                    </div>
+                    <div class="tab-pane fade" id="nav-additional" role="tabpanel" aria-labelledby="nav-additional-tab">
+                        <div class="form-group row justify-content-center">
+                            <label asp-for="CurrentLandLord" class="col-6 col-form-label"></label>
+                            <label asp-for="CurrentLandLordPhone" class="col-6 col-form-label"></label>
+                            <div class="col-6">
+                                <input asp-for="CurrentLandLord" class="form-control" />
+                                <span asp-validation-for="CurrentLandLord"></span>
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="CurrentLandLordPhone" class="form-control" />
+                                <span asp-validation-for="CurrentLandLordPhone"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label asp-for="AdditionalText" class="col-12 col-form-label"></label>
+                            <div class="col-12">
+                                <input asp-for="AdditionalText" class="form-control" />
+                                <span asp-validation-for="AdditionalText"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row justify-content-center">
+                            <label asp-for="HasPets" class="col-4 col-form-label"></label>
+                            <label asp-for="IsSmoking" class="col-4 col-form-label"></label>
+                            <label asp-for="AgreeOnTerms" class="col-4 col-form-label"></label>
+                            <div class="col-4">
+                                <input asp-for="HasPets" />
+                            </div>
+                            <div class="col-4">
+                                <input asp-for="IsSmoking" />
+                            </div>
+                            <div class="col-4">
+                                <input asp-for="AgreeOnTerms" />
+                            </div>
+                            <div class="col-12 modal-footer mt-3">
+                                <button type="button" class="btn btn-primary">Skicka</button>
+                            </div>
+                        </div>
+                    </div>
+                    @* </form>*@
+                </div>
             </div>
         </div>
     </div>
