@@ -11,6 +11,24 @@
             border: 20px solid #f9f9f9;
         }
     }
+
+    .btn-rental-application {
+        display: block;
+        width: 100%;
+        border: 1px solid #dee2e6;
+        padding: 10px;
+        background: none;
+
+        -webkit-transition: all .25s linear;
+        -o-transition: all .25s linear;
+        transition: all .25s linear;
+
+        &:hover {
+            transform: scale(1.15);
+            background-color: #dee2e6;
+            color: white;
+        }
+    }
 }
 
 #rental-list-container {
@@ -27,6 +45,10 @@
     #rental-list-filters {
         background-color: #f3f3f3;
     }
+
+    /*.residence-thumb {
+        opacity:0;
+    }*/
 }
 
 .breadcrumb {

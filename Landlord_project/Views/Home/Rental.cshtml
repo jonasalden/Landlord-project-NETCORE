@@ -155,4 +155,12 @@
         });
     });
     </script>
+    <script>
+        function LoadThumbs() {
+            $('.residence-thumb').each(function (index) {
+                console.log(index + ": " + $(this).text());
+                $(this).delay(100).animate({ opacity: 1 }, 700);
+            });
+        };
+    </script>
 }

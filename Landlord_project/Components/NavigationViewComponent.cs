@@ -7,6 +7,7 @@ namespace Landlord_project.Components
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
+            // inte asynkront.
             return View();
         }
     }
