@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Landlord_project.Data
 {
-    public class Residence
+    public class Residence : BaseEntity
     {
-        public int Id { get; set; }
         public string Estate { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }

@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Landlord_project.Data
 {
-    public class ResidenceReport
+    public class ResidenceReport : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }

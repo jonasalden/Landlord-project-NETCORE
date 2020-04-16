@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Landlord_project.Models;
 using Landlord_project.Models.Validators;
+using Landlord_project.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +20,10 @@ namespace Landlord_project.App_Start
             #region Transient Services
             services.AddTransient<IValidator<ReportModel>, ReportValidator>();
             services.AddTransient<IValidator<IFormFile>, FileValidator>();
+            #endregion
+
+            #region Repositories
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             #endregion
         }
     }

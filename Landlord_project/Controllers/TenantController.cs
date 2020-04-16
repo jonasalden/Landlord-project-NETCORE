@@ -1,5 +1,6 @@
 ﻿using Landlord_project.Data;
 using Landlord_project.Models;
+using Landlord_project.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -13,15 +14,17 @@ namespace Landlord_project.Controllers
     public class TenantController : Controller
     {
         #region Fields
-        private readonly DataContext _context;
         private readonly IWebHostEnvironment _environment;
+        private IGenericRepository<Residence> _residenceRepository;
+        private IGenericRepository<ResidenceReport> _residenceReportRepository;
         #endregion
 
         #region Constructor
-        public TenantController(DataContext context, IWebHostEnvironment environment)
+        public TenantController(IWebHostEnvironment environment, IGenericRepository<Residence> residenceRepository, IGenericRepository<ResidenceReport> residenceReportRepository)
         {
-            _context = context;
             _environment = environment;
+            _residenceRepository = residenceRepository;
+            _residenceReportRepository = residenceReportRepository;
         }
         #endregion
 
@@ -32,7 +35,7 @@ namespace Landlord_project.Controllers
         {
             var model = new ReportModel();
 
-            var residences = _context.Residences.ToList();
+            var residences = _residenceRepository.GetAll();
 
             if (residences.Any())
             {
@@ -93,8 +96,7 @@ namespace Landlord_project.Controllers
                 CanAccessResidence = model.CanAccessResidence,
                 HousingNumber = model.HousingNumber
             };
-            _context.ResidenceReports.Add(reportModel);
-            _context.SaveChanges();
+            _residenceReportRepository.Insert(reportModel);
             return RedirectToAction("Index", "Home");
         }
 

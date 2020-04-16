@@ -1,8 +1,8 @@
 ﻿using Landlord_project.Data;
 using Landlord_project.Models;
+using Landlord_project.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,16 +13,16 @@ namespace Landlord_project.Controllers
     public class HomeController : Controller
     {
         #region Fields
-        private readonly DataContext _context;
         private IWebHostEnvironment _environment;
         private readonly string folderPath = "\\images\\";
+        private IGenericRepository<Residence> _residenceRepository;
         #endregion
 
         #region Constructor
-        public HomeController(DataContext context, IWebHostEnvironment environment)
+        public HomeController(IWebHostEnvironment environment, IGenericRepository<Residence> residenceRepository)
         {
-            _context = context;
             _environment = environment;
+            _residenceRepository = residenceRepository;
         }
         #endregion
 
@@ -34,7 +34,7 @@ namespace Landlord_project.Controllers
         [Route("hyresledigt")]
         public IActionResult Rental()
         {
-            var residences = _context.Residences.Include(x => x.ResidenceReports).ToList();
+            var residences = _residenceRepository.GetAll(x => x.ResidenceReports).ToList();
             var model = new RentalModel();
 
             if (residences.Any())
@@ -75,7 +75,7 @@ namespace Landlord_project.Controllers
         [Route("hyresledigt/detaljer/{id}")]
         public IActionResult RentalDetails(int id)
         {
-            var residence = _context.Residences.FirstOrDefault(r => r.Id == id);
+            var residence = _residenceRepository.GetById(id);
             if (residence == null)
                 return View(null);
 
@@ -101,16 +101,23 @@ namespace Landlord_project.Controllers
         [HttpGet]
         public IActionResult FilterPrice(int price, int rooms)
         {
-            var query = (IQueryable<Residence>)_context.Residences;
+            var residences = _residenceRepository.GetAll();
 
             if (price >= 0)
-                query = query.Where(re => re.RentalPrice >= price);
-            if (rooms >= 1)
-            {
-                query = query.Where(re => re.Rooms >= rooms);
-            }
+                residences = residences.Where(re => re.RentalPrice >= price);
 
-            var residences = query.ToList();
+            if (rooms >= 1)
+                residences = residences.Where(re => re.Rooms >= rooms);
+            //var query = (IQueryable<Residence>)_context.Residences;
+
+            //if (price >= 0)
+            //    query = query.Where(re => re.RentalPrice >= price);
+            //if (rooms >= 1)
+            //{
+            //    query = query.Where(re => re.Rooms >= rooms);
+            //}
+
+            //var residences = query.ToList();
 
             var model = new List<ResidenceModel>();
             if (residences.Any())
@@ -137,7 +144,7 @@ namespace Landlord_project.Controllers
         [HttpGet]
         public IActionResult RentalApplication(int residenceId)
         {
-            var address = _context.Residences.FirstOrDefault(re => re.Id == residenceId).Address;
+            var address = _residenceRepository.GetById(residenceId).Address;
             var model = new ResidenceApplication
             {
                 ResidenceId = residenceId,
@@ -156,8 +163,7 @@ namespace Landlord_project.Controllers
         #region Helpers
         public IActionResult GetResidenceImage(int id)
         {
-            var residence = _context.Residences.FirstOrDefault(r => r.Id == id);
-
+            var residence = _residenceRepository.GetById(id);
             if (residence == null)
                 return NotFound();
 

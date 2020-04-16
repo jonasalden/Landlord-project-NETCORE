@@ -2,11 +2,8 @@
 
 namespace Landlord_project.Data
 {
-    public class ResidenceApplication
+    public class ResidenceApplication : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         [Display(Name = "Förnamn")]
         [StringLength(100)]
