@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using Landlord_project.App_Start;
 using Landlord_project.Data;
 using Microsoft.AspNetCore.Builder;
@@ -21,7 +22,8 @@ namespace Landlord_project
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
+            services.AddMvc().AddFluentValidation();
+            services.RegisterServices();
             services.AddDbContext<DataContext>(options =>
            options.UseSqlServer(Configuration.GetConnectionString("LandlordContext")));
         }
