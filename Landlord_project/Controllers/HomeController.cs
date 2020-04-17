@@ -1,6 +1,7 @@
 ﻿using Landlord_project.Data;
 using Landlord_project.Models;
 using Landlord_project.Repositories;
+using Landlord_project.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -14,15 +15,16 @@ namespace Landlord_project.Controllers
     {
         #region Fields
         private IWebHostEnvironment _environment;
-        private readonly string folderPath = "\\images\\";
         private IGenericRepository<Residence> _residenceRepository;
+        private readonly IPictureService _pictureService;
         #endregion
 
         #region Constructor
-        public HomeController(IWebHostEnvironment environment, IGenericRepository<Residence> residenceRepository)
+        public HomeController(IWebHostEnvironment environment, IGenericRepository<Residence> residenceRepository, IPictureService pictureService)
         {
             _environment = environment;
             _residenceRepository = residenceRepository;
+            _pictureService = pictureService;
         }
         #endregion
 
@@ -34,7 +36,7 @@ namespace Landlord_project.Controllers
         [Route("hyresledigt")]
         public IActionResult Rental()
         {
-            var residences = _residenceRepository.GetAll(x => x.ResidenceReports).ToList();
+            var residences = _residenceRepository.Get(x => x.ResidenceReports).ToList();
             var model = new RentalModel();
 
             if (residences.Any())
@@ -101,23 +103,13 @@ namespace Landlord_project.Controllers
         [HttpGet]
         public IActionResult FilterPrice(int price, int rooms)
         {
-            var residences = _residenceRepository.GetAll();
+            var residences = _residenceRepository.Get();
 
             if (price >= 0)
-                residences = residences.Where(re => re.RentalPrice >= price);
+                residences = residences.Where(re => re.RentalPrice >= price); //IEnumerable eller IQueryable?
 
             if (rooms >= 1)
                 residences = residences.Where(re => re.Rooms >= rooms);
-            //var query = (IQueryable<Residence>)_context.Residences;
-
-            //if (price >= 0)
-            //    query = query.Where(re => re.RentalPrice >= price);
-            //if (rooms >= 1)
-            //{
-            //    query = query.Where(re => re.Rooms >= rooms);
-            //}
-
-            //var residences = query.ToList();
 
             var model = new List<ResidenceModel>();
             if (residences.Any())
@@ -144,7 +136,12 @@ namespace Landlord_project.Controllers
         [HttpGet]
         public IActionResult RentalApplication(int residenceId)
         {
-            var address = _residenceRepository.GetById(residenceId).Address;
+            var residence = _residenceRepository.GetById(residenceId);
+            var address = string.Empty;
+
+            if (residence != null && !string.IsNullOrWhiteSpace(residence.Address))
+                address = residence.Address;
+
             var model = new ResidenceApplication
             {
                 ResidenceId = residenceId,
@@ -167,17 +164,10 @@ namespace Landlord_project.Controllers
             if (residence == null)
                 return NotFound();
 
-            var webRootpath = _environment.WebRootPath;
-            var fullPath = webRootpath + folderPath + residence.ImageName;
+            var fileBytes = _pictureService.GetBytesByPath(_environment.WebRootPath, residence.ImageName);
 
-            if (System.IO.File.Exists(fullPath))
+            if (fileBytes.Any())
             {
-                var fileOnDisk = new FileStream(fullPath, FileMode.Open);
-                byte[] fileBytes;
-                using (var br = new BinaryReader(fileOnDisk))
-                {
-                    fileBytes = br.ReadBytes((int)fileOnDisk.Length);
-                }
                 return File(fileBytes, residence.ImageMimeType);
             }
             else

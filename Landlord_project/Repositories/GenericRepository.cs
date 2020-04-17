@@ -28,10 +28,9 @@ namespace Landlord_project.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includes)
+        public IEnumerable<T> Get(params Expression<Func<T, object>>[] includes)
         {
             var query = _context.Set<T>();
-
             return includes.Aggregate(query.AsQueryable(), (query, path) => query.Include(path));
         }
 

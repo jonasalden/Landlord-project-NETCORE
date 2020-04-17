@@ -17,6 +17,8 @@ namespace Landlord_project.Controllers
         private readonly IWebHostEnvironment _environment;
         private IGenericRepository<Residence> _residenceRepository;
         private IGenericRepository<ResidenceReport> _residenceReportRepository;
+        private readonly string imagePath = @"images\reports\";
+
         #endregion
 
         #region Constructor
@@ -35,7 +37,7 @@ namespace Landlord_project.Controllers
         {
             var model = new ReportModel();
 
-            var residences = _residenceRepository.GetAll();
+            var residences = _residenceRepository.Get();
 
             if (residences.Any())
             {
@@ -69,7 +71,6 @@ namespace Landlord_project.Controllers
                 }
 
                 model.DateCreated = DateTime.Now;
-                var imagePath = @"images\reports\";
                 var imageExtension = Path.GetExtension(model.Image.FileName);
                 imageDbName = $"report_{imageCleanName}" + imageExtension;
                 var relativeImagePath = imagePath + imageDbName;

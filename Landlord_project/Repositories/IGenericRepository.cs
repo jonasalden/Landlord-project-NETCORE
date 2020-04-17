@@ -7,7 +7,7 @@ namespace Landlord_project.Repositories
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {
-        IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includes);
+        IEnumerable<T> Get(params Expression<Func<T, object>>[] includes);
         T GetById(int id, params Expression<Func<T, object>>[] includes);
         void Insert(T entity);
         void Update(T entity);

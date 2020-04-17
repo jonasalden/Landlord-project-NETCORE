@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Components\" />
-    <Folder Include="Services\Interfaces\" />
     <Folder Include="Views\Shared\Components\" />
     <Folder Include="wwwroot\images\reports\" />
   </ItemGroup>
