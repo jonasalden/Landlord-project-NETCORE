@@ -33,8 +33,6 @@ namespace Landlord_project.Models.Validators
 			RuleFor(rm => rm.HousingNumber)
 				.NotEmpty().WithMessage("Fastighetsnummer får inte vara tomt")
 				.Length(1, 15).WithMessage("Ange giltigt fastighetsnummer");
-			// Börjat med FLUENT VALIDATION.
-			//RuleFor(x => x.Age).InclusiveBetween(18, 60);
 
 			RuleFor(x => x.Image).SetValidator(new FileValidator());
 		}
