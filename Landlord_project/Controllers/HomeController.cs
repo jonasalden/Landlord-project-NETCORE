@@ -164,7 +164,7 @@ namespace Landlord_project.Controllers
             if (residence == null)
                 return NotFound();
 
-            var fileBytes = _pictureService.GetBytesByPath(_environment.WebRootPath, residence.ImageName);
+            var fileBytes = _pictureService.GetPictureBytesByPath(_environment.WebRootPath, @"\images\", residence.ImageName);
 
             if (fileBytes.Any())
             {

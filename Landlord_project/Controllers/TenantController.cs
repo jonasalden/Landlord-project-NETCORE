@@ -1,6 +1,7 @@
 ﻿using Landlord_project.Data;
 using Landlord_project.Models;
 using Landlord_project.Repositories;
+using Landlord_project.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,15 +19,16 @@ namespace Landlord_project.Controllers
         private IGenericRepository<Residence> _residenceRepository;
         private IGenericRepository<ResidenceReport> _residenceReportRepository;
         private readonly string imagePath = @"images\reports\";
-
+        private readonly IPictureService _pictureService;
         #endregion
 
         #region Constructor
-        public TenantController(IWebHostEnvironment environment, IGenericRepository<Residence> residenceRepository, IGenericRepository<ResidenceReport> residenceReportRepository)
+        public TenantController(IPictureService pictureService, IWebHostEnvironment environment, IGenericRepository<Residence> residenceRepository, IGenericRepository<ResidenceReport> residenceReportRepository)
         {
             _environment = environment;
             _residenceRepository = residenceRepository;
             _residenceReportRepository = residenceReportRepository;
+            _pictureService = pictureService;
         }
         #endregion
 
@@ -57,29 +59,12 @@ namespace Landlord_project.Controllers
             if (!ModelState.IsValid)
                 return NotFound();
 
-            var imageDbName = string.Empty;
-
+            model.DateCreated = DateTime.Now;
             if (model.Image != null && model.Image.Length > 0)
             {
-                model.ImageMimeType = model.Image.ContentType;
-                model.ImageName = Path.GetFileName(model.Image.FileName);
-                var imageCleanName = Path.GetFileNameWithoutExtension(model.Image.FileName);
-                using (var memoryStream = new MemoryStream())
-                {
-                    model.Image.CopyTo(memoryStream);
-                    model.ImageFile = memoryStream.ToArray();
-                }
-
-                model.DateCreated = DateTime.Now;
-                var imageExtension = Path.GetExtension(model.Image.FileName);
-                imageDbName = $"report_{imageCleanName}" + imageExtension;
-                var relativeImagePath = imagePath + imageDbName;
-                var absImagePath = Path.Combine(_environment.WebRootPath, relativeImagePath);
-
-                using (var fileStream = new FileStream(absImagePath, FileMode.Create))
-                {
-                    model.Image.CopyTo(fileStream);
-                }
+                var bytes = _pictureService.UploadPicture(_environment, model.Image, $"fel_{model.Email}_{model.DateCreated.ToString("yyyyMMddHHmmss")}");
+                model.ImageFile = bytes.Keys.First();
+                model.ImageName = bytes.Values.First();
             }
 
             var reportModel = new ResidenceReport
@@ -89,8 +74,8 @@ namespace Landlord_project.Controllers
                 Description = model.Description,
                 Email = model.Email,
                 ImageFile = model.ImageFile ?? null,
-                ImageMimeType = model.ImageMimeType ?? null,
-                ImageName = imageDbName ?? null,
+                ImageMimeType = model.Image.ContentType,
+                ImageName = model.ImageName,
                 Phone = model.Phone,
                 ResidenceId = model.ResidenceId,
                 DateCreated = model.DateCreated,

@@ -2,6 +2,8 @@
 using Landlord_project.Models;
 using Landlord_project.Models.Validators;
 using Landlord_project.Repositories;
+using Landlord_project.Services;
+using Landlord_project.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +22,9 @@ namespace Landlord_project.App_Start
             #region Transient Services
             services.AddTransient<IValidator<ReportModel>, ReportValidator>();
             services.AddTransient<IValidator<IFormFile>, FileValidator>();
+
+            services.AddTransient<IPictureService, PictureService>(); // rätt fel?
+
             #endregion
 
             #region Repositories
