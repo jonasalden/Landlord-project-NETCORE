@@ -30,5 +30,6 @@ namespace Landlord_project.Models
         [Display(Name = "Renoverat år:")]
         public DateTime DateRenovated { get; set; }
         public int ZipCode { get; set; }
+        public bool ActivateRegisterForm { get; set; }
     }
 }

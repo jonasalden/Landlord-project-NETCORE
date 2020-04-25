@@ -1,0 +1,36 @@
+﻿@model Landlord_project.Models.RentalModel
+
+<div class="row">
+    @*Hyra*@
+    <div class="col-sm-12 col-md-4 mt-md-0 mt-3">
+        <label for="rental-rent-amount">Hyra:</label>
+        <span id="rental-rent-amount"></span>
+        <div id="rental-rent-slider"></div>
+    </div>
+    @*Antal rum*@
+    <div class="col-sm-12 col-md-4 mt-md-0 mt-3">
+        <label for="rental-room-amount">Minst antal rum:</label>
+        <select name="rental-room-amount" id="rental-room-amount">
+            @if (Model.MaxRooms >= 0)
+            {
+                for (int i = 1; i < Model.MaxRooms + 1; i++)
+                {
+                    <option>@i</option>
+                }
+            }
+        </select>
+    </div>
+    @*Område*@
+    <div class="col-sm-12 col-md-4">
+        <label asp-for="SelectedArea"></label>
+        <select class="form-control" asp-for="SelectedArea" asp-items="Model.Areas">
+            <option selected value="">Alla områden</option>
+        </select>
+    </div>
+    @*Sortera*@
+    <div class="col-sm-12 col-md-4 mt-3">
+        <label asp-for="SortBy"></label>
+        <select class="sortby-control" asp-for="SortBy" asp-items="Html.GetEnumSelectList<Landlord_project.Models.Enums.SortByModel>()">
+        </select>
+    </div>
+</div>

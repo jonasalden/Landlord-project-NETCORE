@@ -1,9 +1,11 @@
 ﻿using Landlord_project.Data;
 using Landlord_project.Models;
+using Landlord_project.Models.Enums;
 using Landlord_project.Repositories;
 using Landlord_project.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -36,8 +38,20 @@ namespace Landlord_project.Controllers
         [Route("hyresledigt")]
         public IActionResult Rental()
         {
-            var residences = _residenceRepository.Get(x => x.ResidenceReports).ToList();
-            var model = new RentalModel();
+
+            var residences = _residenceRepository.Get(x => x.ResidenceReports).ToList().OrderBy(pr => pr.ApplicationFrom);
+            var cities = residences.Select(r => r.Area).Distinct();
+            var model = new RentalModel
+            {
+                Areas = new List<SelectListItem>()
+            };
+            if (cities.Any())
+            {
+                foreach (var area in cities)
+                {
+                    model.Areas.Add(new SelectListItem { Text = area, Value = area });
+                }
+            }
 
             if (residences.Any())
             {
@@ -75,7 +89,7 @@ namespace Landlord_project.Controllers
         }
 
         [Route("hyresledigt/detaljer/{id}")]
-        public IActionResult RentalDetails(int id)
+        public IActionResult RentalDetails(int id, bool arf)
         {
             var residence = _residenceRepository.GetById(id);
             if (residence == null)
@@ -95,21 +109,50 @@ namespace Landlord_project.Controllers
                 Rooms = residence.Rooms,
                 Size = residence.Size,
                 RentalPrice = residence.RentalPrice,
-                ZipCode = residence.ZipCode
+                ZipCode = residence.ZipCode,
+                ActivateRegisterForm = arf
             };
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult FilterPrice(int price, int rooms)
+        public IActionResult FilterPrice(int minPrice, int maxPrice, int rooms, string area, int sortBy)
         {
             var residences = _residenceRepository.Get();
 
-            if (price >= 0)
-                residences = residences.Where(re => re.RentalPrice >= price); //IEnumerable eller IQueryable?
+            if (minPrice >= 0)
+                residences = residences.Where(re => re.RentalPrice >= minPrice);
+
+            if (maxPrice >= 0)
+                residences = residences.Where(re => re.RentalPrice <= maxPrice);
 
             if (rooms >= 1)
                 residences = residences.Where(re => re.Rooms >= rooms);
+
+            if (!string.IsNullOrWhiteSpace(area))
+                residences = residences.Where(re => re.Area == area);
+
+            if (sortBy > 0 && residences.Count() > 1)
+            {
+                switch (sortBy)
+                {
+                    case (int)SortByModel.Availability:
+                        residences = residences.OrderBy(re => re.ApplicationFrom);
+                        break;
+                    case (int)SortByModel.RentFrom:
+                        residences = residences.OrderBy(re => re.RentalPrice);
+                        break;
+                    case (int)SortByModel.RentTo:
+                        residences = residences.OrderByDescending(re => re.RentalPrice);
+                        break;
+                    case (int)SortByModel.Size:
+                        residences = residences.OrderByDescending(re => re.Size);
+                        break;
+                    case (int)SortByModel.Rooms:
+                        residences = residences.OrderByDescending(re => re.Rooms);
+                        break;
+                }
+            }
 
             var model = new List<ResidenceModel>();
             if (residences.Any())
@@ -148,6 +191,16 @@ namespace Landlord_project.Controllers
                 ResidenceName = address
             };
             return PartialView("_GenericModal", model);
+        }
+
+        [HttpPost]
+        public IActionResult RentalApplication(ResidenceApplication model)
+        {
+            if (!ModelState.IsValid)
+            {
+                var test = "";
+            }
+            return null;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

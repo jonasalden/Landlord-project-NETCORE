@@ -92,6 +92,9 @@
             Intresseanmälan
         </button>
     </div>
+    <div id="rental-application-container" class="col-12 mt-3" hidden>
+
+    </div>
 </div>
 
 @section scripts {
@@ -102,17 +105,33 @@
                     url: "/Home/RentalApplication/",
                     type: "GET",
                     data: { residenceId: @Model.Id },
-                    success: function (data) {
-                        $(data).insertAfter("#rental-details-container");
-                        $('#landlord-modal').modal('show')
+                    success: function (data)
+                    {
+                        $('#rental-application-container').toggleClass('active');
 
-                        $('#landlord-modal').on('hidden.bs.modal', function (e) {
-                            $('#landlord-modal').modal('dispose')
-                            $('#landlord-modal').remove();
-                        });
+                        if ($('#rental-application-container').hasClass('active')) {
+                            $('#rental-application-container').html(data);
+                            $('#rental-application-container').removeAttr('hidden');
+                        }
+                        else {
+                            $('#rental-application-container').attr('hidden', 'hidden');
+                            $('#rental-application-container').empty();
+                        }
+                        //$(data).insertAfter("#rental-details-container");
+                        //$('#landlord-modal').modal('show')
+
+                        //$('#landlord-modal').on('hidden.bs.modal', function (e) {
+                        //    $('#landlord-modal').modal('dispose')
+                        //    $('#landlord-modal').remove();
+                        //});
                     }
                 });
             });
+
+            var activateForm = '@Model.ActivateRegisterForm';
+            if (activateForm == 'True') {
+                $('#intresseanmalan').click();
+            }
         });
     </script>
 }

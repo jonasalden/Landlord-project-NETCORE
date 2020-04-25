@@ -4,7 +4,7 @@
 {
     @foreach (var res in Model)
     {
-        <div class="col-sm-12 mb-3 residence-thumb">
+        <div class="col-sm-12 mb-3 residence-thumb animated fadeIn faster">
             <div class="row no-gutters">
                 <div class="col-sm-6">
                     <img class="img-fluid" alt="Image of @res.Address" src="@Url.Action("GetResidenceImage", "Home", new { Id = res.Id})" />
@@ -40,7 +40,7 @@
                             <a class="btn btn-light" href="@Url.Action("RentalDetails", "Home", new { id = res.Id })">Detaljer</a>
                         </div>
                         <div class="col-12 mb-1">
-                            <a class="btn btn-light" href="@Url.Action("RentalDetails", "Home", new { id = res.Id })#intresseanmalan">Intresseanmälan</a>
+                            <a class="btn btn-light" href="@Url.Action("RentalDetails", "Home", new { id = res.Id, arf = true })#intresseanmalan">Intresseanmälan</a>
                         </div>
                     </div>
                 </div>
