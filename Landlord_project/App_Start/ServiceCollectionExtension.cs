@@ -23,7 +23,7 @@ namespace Landlord_project.App_Start
             services.AddTransient<IValidator<ReportModel>, ReportValidator>();
             services.AddTransient<IValidator<IFormFile>, FileValidator>();
 
-            services.AddTransient<IPictureService, PictureService>(); // rätt fel?
+            services.AddTransient<IPictureService, PictureService>();
 
             #endregion
 

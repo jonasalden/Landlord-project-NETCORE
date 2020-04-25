@@ -96,42 +96,9 @@
 
     </div>
 </div>
+<input asp-for="Id" type="hidden" />
+<input asp-for="ActivateRegisterForm" type="hidden" />
 
 @section scripts {
-    <script>
-        $(document).ready(function () {
-            $('#intresseanmalan').on('click', function () {
-                $.ajax({
-                    url: "/Home/RentalApplication/",
-                    type: "GET",
-                    data: { residenceId: @Model.Id },
-                    success: function (data)
-                    {
-                        $('#rental-application-container').toggleClass('active');
-
-                        if ($('#rental-application-container').hasClass('active')) {
-                            $('#rental-application-container').html(data);
-                            $('#rental-application-container').removeAttr('hidden');
-                        }
-                        else {
-                            $('#rental-application-container').attr('hidden', 'hidden');
-                            $('#rental-application-container').empty();
-                        }
-                        //$(data).insertAfter("#rental-details-container");
-                        //$('#landlord-modal').modal('show')
-
-                        //$('#landlord-modal').on('hidden.bs.modal', function (e) {
-                        //    $('#landlord-modal').modal('dispose')
-                        //    $('#landlord-modal').remove();
-                        //});
-                    }
-                });
-            });
-
-            var activateForm = '@Model.ActivateRegisterForm';
-            if (activateForm == 'True') {
-                $('#intresseanmalan').click();
-            }
-        });
-    </script>
+    <script src="~/js/Home/RentalDetails.js"></script>
 }
