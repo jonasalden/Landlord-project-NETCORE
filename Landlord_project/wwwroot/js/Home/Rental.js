@@ -49,20 +49,12 @@ $("#rental-room-amount").on("change", function () {
 $("#rental-room-slider").on("slidestop", function (event, ui) {
     //LoadingScreen(true);
     var rooms = parseInt(ui.value);
+    var minPrice = $("#rental-rent-slider").slider("values", 0);
+    var maxPrice = $("#rental-rent-slider").slider("values", 1);
+    var area = $('#SelectedArea').val();
+    var sortby = $('#SortBy').val();
 
-    $.ajax({
-        url: "Home/FilterPrice",
-        type: "GET",
-        data: { rooms, minPrice: parseInt($("#rental-rent-slider").slider("values", 0)), maxPrice: parseInt($("#rental-rent-slider").slider("values", 1)) },
-        success: function (data) {
-            $('#rental-list-thumb-container').empty();
-            $('#rental-list-thumb-container').html(data);
-
-            var numItems = $('#rental-list-thumb-container .residence-thumb').length;
-            $('#rental-list-total').text("(" + parseInt(numItems) + ")");
-            //LoadingScreen(false);
-        }
-    });
+    Filter(rooms, minPrice, maxPrice, area, sortby);
 });
     });
 function LoadThumbs() {
@@ -105,7 +97,7 @@ function Filter(rooms, minPrice, maxPrice, area, sortby) {
     console.log("sortby: " + sortby);
 
     $.ajax({
-        url: "Home/FilterPrice",
+        url: "Home/Filter",
         type: "GET",
         data: { rooms, minPrice, maxPrice, area, sortby },
         success: function (data) {

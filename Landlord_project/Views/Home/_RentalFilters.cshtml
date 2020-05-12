@@ -30,7 +30,7 @@
     @*Sortera*@
     <div class="col-sm-12 col-md-4 mt-3">
         <label asp-for="SortBy"></label>
-        <select class="sortby-control" asp-for="SortBy" asp-items="Html.GetEnumSelectList<Landlord_project.Models.Enums.SortByModel>()">
+        <select class="sortby-control" asp-for="SortBy" asp-items="Html.GetEnumSelectList<SortByModel>()">
         </select>
     </div>
 </div>

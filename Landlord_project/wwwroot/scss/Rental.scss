@@ -44,12 +44,27 @@
     #rental-list-filters {
         background-color: #f3f3f3;
 
+        .ui-slider-handle{
+            &:hover {
+                cursor:pointer;
+            }
+        }
+        
+        select {
+            &:hover {
+                cursor: pointer;
+            }
+            option {
+                cursor:pointer;
+            }
+        }
+
         .sortby-control {
             background: none;
             border: 0px;
             -moz-appearance: none;
             -webkit-appearance: none;
-            display:block;
+            display: block;
         }
     }
     /*.residence-thumb {

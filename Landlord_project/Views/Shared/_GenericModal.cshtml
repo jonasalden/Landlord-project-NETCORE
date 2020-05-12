@@ -2,39 +2,39 @@
 
 <form asp-controller="Home" asp-action="RentalApplication" method="POST" class="border p-3 animated fadeInUp">
     <div class="form-group row justify-content-center">
-        <label asp-for="FirstName" class="col-6 col-form-label"></label>
-        <label asp-for="LastName" class="col-6 col-form-label"></label>
+        <label asp-for="Tenant.FirstName" class="col-6 col-form-label"></label>
+        <label asp-for="Tenant.LastName" class="col-6 col-form-label"></label>
         <div class="col-6">
-            <input asp-for="FirstName" class="form-control" />
-            <span asp-validation-for="FirstName" class="text-danger"></span>
+            <input asp-for="Tenant.FirstName" class="form-control" />
+            <span asp-validation-for="Tenant.FirstName" class="text-danger"></span>
         </div>
         <div class="col-6">
-            <input asp-for="LastName" class="form-control" />
-            <span asp-validation-for="LastName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row justify-content-center">
-        <label asp-for="SocialSecurityNumber" class="col-6 col-form-label"></label>
-        <label asp-for="Age" class="col-6 col-form-label"></label>
-        <div class="col-6">
-            <input asp-for="SocialSecurityNumber" class="form-control" />
-            <span asp-validation-for="SocialSecurityNumber" class="text-danger"></span>
-        </div>
-        <div class="col-6">
-            <input asp-for="Age" class="form-control" />
-            <span asp-validation-for="Age" class="text-danger"></span>
+            <input asp-for="Tenant.LastName" class="form-control" />
+            <span asp-validation-for="Tenant.LastName" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row justify-content-center">
-        <label asp-for="Email" class="col-6 col-form-label"></label>
-        <label asp-for="Phone" class="col-6 col-form-label"></label>
+        <label asp-for="Tenant.SocialSecurityNumber" class="col-6 col-form-label"></label>
+        <label asp-for="Tenant.Age" class="col-6 col-form-label"></label>
         <div class="col-6">
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
+            <input asp-for="Tenant.SocialSecurityNumber" class="form-control" />
+            <span asp-validation-for="Tenant.SocialSecurityNumber" class="text-danger"></span>
         </div>
         <div class="col-6">
-            <input asp-for="Phone" class="form-control" />
-            <span asp-validation-for="Phone" class="text-danger"></span>
+            <input asp-for="Tenant.Age" class="form-control" />
+            <span asp-validation-for="Tenant.Age" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row justify-content-center">
+        <label asp-for="Tenant.Email" class="col-6 col-form-label"></label>
+        <label asp-for="Tenant.Phone" class="col-6 col-form-label"></label>
+        <div class="col-6">
+            <input asp-for="Tenant.Email" class="form-control" />
+            <span asp-validation-for="Tenant.Email" class="text-danger"></span>
+        </div>
+        <div class="col-6">
+            <input asp-for="Tenant.Phone" class="form-control" />
+            <span asp-validation-for="Tenant.Phone" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row justify-content-center">
@@ -55,10 +55,10 @@
         </div>
     </div>
     <div class="form-group row justify-content-center">
-        <label asp-for="Salary" class="col-12 col-form-label"></label>
+        <label asp-for="Tenant.Salary" class="col-12 col-form-label"></label>
         <div class="col-12">
-            <input asp-for="Salary" class="form-control" />
-            <span asp-validation-for="Salary" class="text-danger"></span>
+            <input asp-for="Tenant.Salary" class="form-control" />
+            <span asp-validation-for="Tenant.Salary" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row justify-content-center">

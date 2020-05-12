@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Landlord_project.Data;
 using Landlord_project.Models;
 using Landlord_project.Models.Validators;
 using Landlord_project.Repositories;
@@ -22,6 +23,8 @@ namespace Landlord_project.App_Start
             #region Transient Services
             services.AddTransient<IValidator<ReportModel>, ReportValidator>();
             services.AddTransient<IValidator<IFormFile>, FileValidator>();
+            services.AddTransient<IValidator<ResidenceApplication>, ResidenceApplicationValidator>();
+
 
             services.AddTransient<IPictureService, PictureService>();
 

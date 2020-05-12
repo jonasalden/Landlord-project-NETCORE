@@ -4,41 +4,7 @@ namespace Landlord_project.Data
 {
     public class ResidenceApplication : BaseEntity
     {
-        [Required]
-        [Display(Name = "Förnamn")]
-        [StringLength(100)]
-        public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "Efternamn")]
-        [StringLength(100)]
-        public string LastName { get; set; }
-
-        [Required]
-        [EmailAddress]
-        [StringLength(100)]
-        public string Email { get; set; }
-
-        [Display(Name = "Telefonnummer")]
-        [Required]
-        [MaxLength(12)]
-        [MinLength(6)]
-        [RegularExpression("^[0-9]*$")]
-        public string Phone { get; set; }
-
-        [Display(Name = "Ålder")]
-        [RegularExpression("^[0-9]*$")]
-        [Required]
-        public int Age { get; set; }
-
-        [Display(Name = "Månadslön")]
-        [Range(0, 999999.99)]
-        [Required]
-        public decimal Salary { get; set; }
-
-        [Display(Name = "Personnummer")]
-        [Required]
-        public string SocialSecurityNumber { get; set; }
+        public Tenant Tenant { get; set; }
 
         [Display(Name = "Innehar husdjur")]
         public bool HasPets { get; set; }
@@ -66,7 +32,7 @@ namespace Landlord_project.Data
         [Display(Name = "Postnummer")]
         [RegularExpression("^[0-9]*$")]
         [Required]
-        public int ZipCode { get; set; }
+        public string ZipCode { get; set; }
 
         [Display(Name = "Nuvarande hyresvärd")]
         public string CurrentLandLord { get; set; }
@@ -83,5 +49,6 @@ namespace Landlord_project.Data
         public bool AgreeOnTerms { get; set; }
         public int ResidenceId { get; set; }
         public string ResidenceName { get; set; }
+        public Residence Residence { get; set; }
     }
 }

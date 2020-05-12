@@ -16,8 +16,8 @@ namespace Landlord_project.Controllers
     {
         #region Fields
         private readonly IWebHostEnvironment _environment;
-        private IGenericRepository<Residence> _residenceRepository;
-        private IGenericRepository<ResidenceReport> _residenceReportRepository;
+        private readonly IGenericRepository<Residence> _residenceRepository;
+        private readonly IGenericRepository<ResidenceReport> _residenceReportRepository;
         private readonly string imagePath = @"images\reports\";
         private readonly IPictureService _pictureService;
         #endregion

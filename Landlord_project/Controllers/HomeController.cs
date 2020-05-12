@@ -6,6 +6,7 @@ using Landlord_project.Services.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -16,8 +17,8 @@ namespace Landlord_project.Controllers
     public class HomeController : Controller
     {
         #region Fields
-        private IWebHostEnvironment _environment;
-        private IGenericRepository<Residence> _residenceRepository;
+        private readonly IWebHostEnvironment _environment;
+        private readonly IGenericRepository<Residence> _residenceRepository;
         private readonly IPictureService _pictureService;
         #endregion
 
@@ -66,7 +67,7 @@ namespace Landlord_project.Controllers
                         Image = res.ImageName,
                         Rooms = res.Rooms,
                         Size = res.Size,
-                        RentalPrice = res.RentalPrice,
+                        RentalPrice = decimal.Round(res.RentalPrice),
                     };
                     model.Residence.Add(residence);
                 }
@@ -88,8 +89,8 @@ namespace Landlord_project.Controllers
             return View(model);
         }
 
-        [Route("hyresledigt/detaljer/{id}")]
-        public IActionResult RentalDetails(int id, bool arf)
+        [Route("hyresledigt/detaljer/{id}/{ActivateRegisterForm?}")]
+        public IActionResult RentalDetails(int id, bool ActivateRegisterForm)
         {
             var residence = _residenceRepository.GetById(id);
             if (residence == null)
@@ -99,8 +100,8 @@ namespace Landlord_project.Controllers
             {
                 Id = residence.Id,
                 Address = residence.Address,
-                DateBuilt = residence.DateBuilt,
-                DateRenovated = residence.DateRenovated,
+                DateBuilt = residence.DateBuilt.Year,
+                DateRenovated = residence.DateRenovated.Year,
                 Area = residence.Area,
                 FloorNumber = residence.FloorNumber,
                 HousingNumber = residence.HousingNumber,
@@ -108,15 +109,15 @@ namespace Landlord_project.Controllers
                 Longitude = residence.Longitude,
                 Rooms = residence.Rooms,
                 Size = residence.Size,
-                RentalPrice = residence.RentalPrice,
+                RentalPrice = decimal.Round(residence.RentalPrice),
                 ZipCode = residence.ZipCode,
-                ActivateRegisterForm = arf
+                ActivateRegisterForm = ActivateRegisterForm
             };
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult FilterPrice(int minPrice, int maxPrice, int rooms, string area, int sortBy)
+        public IActionResult Filter(int minPrice, int maxPrice, int rooms, string area, int sortBy)
         {
             var residences = _residenceRepository.Get();
 

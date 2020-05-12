@@ -9,9 +9,7 @@ namespace Landlord_project.Services
     public class PictureService : IPictureService
     {
         #region Fields
-        private readonly string folderPath = @"\images\";
         private readonly string reportPath = @"images\reports\";
-
         #endregion
 
         #region Constructor

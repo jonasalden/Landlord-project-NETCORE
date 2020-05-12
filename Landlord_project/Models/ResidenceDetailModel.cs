@@ -26,9 +26,9 @@ namespace Landlord_project.Models
         [Display(Name = "Våning:")]
         public int FloorNumber { get; set; }
         [Display(Name = "Byggt år:")]
-        public DateTime DateBuilt { get; set; }
+        public int DateBuilt { get; set; }
         [Display(Name = "Renoverat år:")]
-        public DateTime DateRenovated { get; set; }
+        public int DateRenovated { get; set; }
         public int ZipCode { get; set; }
         public bool ActivateRegisterForm { get; set; }
     }
