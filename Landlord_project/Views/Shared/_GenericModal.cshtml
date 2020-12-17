@@ -1,117 +1,101 @@
 ﻿@model Landlord_project.Data.ResidenceApplication
 
-<form asp-controller="Home" asp-action="RentalApplication" method="POST" class="border p-3 animated fadeInUp">
-    <div class="form-group row justify-content-center">
-        <label asp-for="Tenant.FirstName" class="col-6 col-form-label"></label>
-        <label asp-for="Tenant.LastName" class="col-6 col-form-label"></label>
-        <div class="col-6">
-            <input asp-for="Tenant.FirstName" class="form-control" />
-            <span asp-validation-for="Tenant.FirstName" class="text-danger"></span>
+<form id="residenceApplication-form" asp-controller="Home" asp-action="RentalApplication" method="POST" class="border p-3 animated fadeInUp">
+    <fieldset class="form-group">
+        <legend><i class="fas fa-lock-open"></i><a data-toggle="collapse" href="#application-stepOne" role="button" aria-expanded="false" aria-controls="application-stepOne">1. Personliga uppgifter</a></legend>
+        <div class="row" id="application-stepOne">
+            <label asp-for="Tenant.FirstName" class="col-6 col-form-label"></label>
+            <label asp-for="Tenant.LastName" class="col-6 col-form-label"></label>
+            <div class="col-6">
+                <input asp-for="Tenant.FirstName" class="form-control" />
+                <span asp-validation-for="Tenant.FirstName" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <input asp-for="Tenant.LastName" class="form-control" />
+                <span asp-validation-for="Tenant.LastName" class="text-danger"></span>
+            </div>
+            <label asp-for="Tenant.SocialSecurityNumber" class="col-6 col-form-label"></label>
+            <label asp-for="Tenant.Email" class="col-6 col-form-label"></label>
+            <div class="col-6">
+                <input asp-for="Tenant.SocialSecurityNumber" class="form-control" />
+                <span asp-validation-for="Tenant.SocialSecurityNumber" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <input asp-for="Tenant.Email" class="form-control" />
+                <span asp-validation-for="Tenant.Email" class="text-danger"></span>
+            </div>
+            <label asp-for="Tenant.Phone" class="col-12 col-form-label"></label>
+            <div class="col-4">
+                <input asp-for="Tenant.Phone" class="form-control" />
+                <span asp-validation-for="Tenant.Phone" class="text-danger"></span>
+            </div>
         </div>
-        <div class="col-6">
-            <input asp-for="Tenant.LastName" class="form-control" />
-            <span asp-validation-for="Tenant.LastName" class="text-danger"></span>
+    </fieldset>
+    <fieldset class="form-group">
+        <legend><i class="fas fa-lock"></i><a class="disabled" data-toggle="collapse" href="#application-stepTwo" role="button" aria-expanded="false" aria-controls="application-stepTwo"> 2. Adressuppgifter & Arbetsförhållanden</a></legend>
+        <div id="application-stepTwo" class="collapse row justify-content-center">
+            <label asp-for="CurrentLandLord" class="col-6 col-form-label"></label>
+            <label asp-for="CurrentLandLordPhone" class="col-6 col-form-label"></label>
+            <div class="col-6">
+                <input asp-for="CurrentLandLord" class="form-control" />
+                <span class="text-danger" asp-validation-for="CurrentLandLord"></span>
+            </div>
+            <div class="col-6">
+                <input asp-for="CurrentLandLordPhone" class="form-control" />
+                <span class="text-danger" asp-validation-for="CurrentLandLordPhone"></span>
+            </div>
+            <label asp-for="Address" class="col-6 col-form-label"></label>
+            <label asp-for="ZipCode" class="col-3 col-form-label"></label>
+            <label asp-for="City" class="col-3 col-form-label"></label>
+            <div class="col-6">
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <input asp-for="ZipCode" class="form-control" />
+                <span asp-validation-for="ZipCode" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <label asp-for="Employer" class="col-6 col-form-label"></label>
+            <label asp-for="Tenant.Salary" class="col-6 col-form-label"></label>
+            <div class="col-6">
+                <input asp-for="Employer" class="form-control" />
+                <span asp-validation-for="Employer" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <input asp-for="Tenant.Salary" class="form-control" />
+                <span asp-validation-for="Tenant.Salary" class="text-danger"></span>
+            </div>
         </div>
-    </div>
-    <div class="form-group row justify-content-center">
-        <label asp-for="Tenant.SocialSecurityNumber" class="col-6 col-form-label"></label>
-        <label asp-for="Tenant.Age" class="col-6 col-form-label"></label>
-        <div class="col-6">
-            <input asp-for="Tenant.SocialSecurityNumber" class="form-control" />
-            <span asp-validation-for="Tenant.SocialSecurityNumber" class="text-danger"></span>
+    </fieldset>
+    <fieldset class="form-group">
+        <legend><i class="fas fa-lock"></i><a class="disabled" data-toggle="collapse" href="#application-stepThree" role="button" aria-expanded="false" aria-controls="application-stepThree">3. Övrigt</a></legend>
+        <div id="application-stepThree" class="collapse row justify-content-center">
+            <label asp-for="AdditionalText" class="col-12 col-form-label"></label>
+            <div class="col-12">
+                <textarea asp-for="AdditionalText" class="form-control" />
+                <span class="text-danger" asp-validation-for="AdditionalText"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="HasPets" class="col-form-label"></label>
+                <input asp-for="HasPets" />
+            </div>
+            <div class="col-12">
+                <label asp-for="IsSmoking" class="col-form-label"></label>
+                <input asp-for="IsSmoking" />
+            </div>
+            <div class="col-12">
+                <label asp-for="AgreeOnTerms" class="col-form-label"></label>
+                <input asp-for="AgreeOnTerms" />
+            </div>
+            <div class="col-12 modal-footer mt-3">
+                <button type="submit" class="btn btn-primary">Skicka</button>
+            </div>
         </div>
-        <div class="col-6">
-            <input asp-for="Tenant.Age" class="form-control" />
-            <span asp-validation-for="Tenant.Age" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row justify-content-center">
-        <label asp-for="Tenant.Email" class="col-6 col-form-label"></label>
-        <label asp-for="Tenant.Phone" class="col-6 col-form-label"></label>
-        <div class="col-6">
-            <input asp-for="Tenant.Email" class="form-control" />
-            <span asp-validation-for="Tenant.Email" class="text-danger"></span>
-        </div>
-        <div class="col-6">
-            <input asp-for="Tenant.Phone" class="form-control" />
-            <span asp-validation-for="Tenant.Phone" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row justify-content-center">
-        <label asp-for="Address" class="col-6 col-form-label"></label>
-        <label asp-for="ZipCode" class="col-3 col-form-label"></label>
-        <label asp-for="City" class="col-3 col-form-label"></label>
-        <div class="col-6">
-            <input asp-for="Address" class="form-control" />
-            <span asp-validation-for="Address" class="text-danger"></span>
-        </div>
-        <div class="col-3">
-            <input asp-for="ZipCode" class="form-control" />
-            <span asp-validation-for="ZipCode" class="text-danger"></span>
-        </div>
-        <div class="col-3">
-            <input asp-for="City" class="form-control" />
-            <span asp-validation-for="City" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row justify-content-center">
-        <label asp-for="Tenant.Salary" class="col-12 col-form-label"></label>
-        <div class="col-12">
-            <input asp-for="Tenant.Salary" class="form-control" />
-            <span asp-validation-for="Tenant.Salary" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row justify-content-center">
-        <label asp-for="Employer" class="col-12 col-form-label"></label>
-        <div class="col-12">
-            <input asp-for="Employer" class="form-control" />
-            <span asp-validation-for="Employer" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group row justify-content-center">
-        <label asp-for="CurrentWork" class="col-12 col-form-label"></label>
-        <div class="col-12">
-            <input asp-for="CurrentWork" class="form-control" />
-            <span asp-validation-for="CurrentWork" class="text-danger"></span>
-        </div>
-    </div>
-    Co-tenant
-    <div class="form-group row justify-content-center">
-        <label asp-for="CurrentLandLord" class="col-6 col-form-label"></label>
-        <label asp-for="CurrentLandLordPhone" class="col-6 col-form-label"></label>
-        <div class="col-6">
-            <input asp-for="CurrentLandLord" class="form-control" />
-            <span class="text-danger" asp-validation-for="CurrentLandLord"></span>
-        </div>
-        <div class="col-6">
-            <input asp-for="CurrentLandLordPhone" class="form-control" />
-            <span class="text-danger" asp-validation-for="CurrentLandLordPhone"></span>
-        </div>
-    </div>
-    <div class="form-group row justify-content-center">
-        <label asp-for="AdditionalText" class="col-12 col-form-label"></label>
-        <div class="col-12">
-            <input asp-for="AdditionalText" class="form-control" />
-            <span class="text-danger" asp-validation-for="AdditionalText"></span>
-        </div>
-    </div>
-    <div class="form-group row justify-content-center">
-        <label asp-for="HasPets" class="col-4 col-form-label"></label>
-        <label asp-for="IsSmoking" class="col-4 col-form-label"></label>
-        <label asp-for="AgreeOnTerms" class="col-4 col-form-label"></label>
-        <div class="col-4">
-            <input asp-for="HasPets" />
-        </div>
-        <div class="col-4">
-            <input asp-for="IsSmoking" />
-        </div>
-        <div class="col-4">
-            <input asp-for="AgreeOnTerms" />
-        </div>
-        <div class="col-12 modal-footer mt-3">
-            <button type="submit" class="btn btn-primary">Skicka</button>
-        </div>
-    </div>
+    </fieldset>
 </form>
 <script src="~/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

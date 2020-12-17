@@ -22,7 +22,7 @@ namespace Landlord_project.Data
 
         [Display(Name = "Stad")]
         [StringLength(100)]
-        [Required]
+        [Required(ErrorMessage = "Stad måste anges")]
         public string City { get; set; }
 
         [Display(Name = "Postadress")]

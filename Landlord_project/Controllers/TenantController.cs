@@ -18,17 +18,20 @@ namespace Landlord_project.Controllers
         private readonly IWebHostEnvironment _environment;
         private readonly IGenericRepository<Residence> _residenceRepository;
         private readonly IGenericRepository<ResidenceReport> _residenceReportRepository;
+        private readonly IGenericRepository<FaqQuestion> _faqQuestionRepository;
+
         private readonly string imagePath = @"images\reports\";
         private readonly IPictureService _pictureService;
         #endregion
 
         #region Constructor
-        public TenantController(IPictureService pictureService, IWebHostEnvironment environment, IGenericRepository<Residence> residenceRepository, IGenericRepository<ResidenceReport> residenceReportRepository)
+        public TenantController(IGenericRepository<FaqQuestion> faqQuestionRepository, IPictureService pictureService, IWebHostEnvironment environment, IGenericRepository<Residence> residenceRepository, IGenericRepository<ResidenceReport> residenceReportRepository)
         {
             _environment = environment;
             _residenceRepository = residenceRepository;
             _residenceReportRepository = residenceReportRepository;
             _pictureService = pictureService;
+            _faqQuestionRepository = faqQuestionRepository;
         }
         #endregion
 
@@ -89,6 +92,7 @@ namespace Landlord_project.Controllers
         [Route("faq")]
         public IActionResult Faq()
         {
+           var test = _faqQuestionRepository.Get(x => x.Category).ToList();
             return View();
         }
         #endregion

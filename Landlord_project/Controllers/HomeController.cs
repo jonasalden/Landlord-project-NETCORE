@@ -39,7 +39,6 @@ namespace Landlord_project.Controllers
         [Route("hyresledigt")]
         public IActionResult Rental()
         {
-
             var residences = _residenceRepository.Get(x => x.ResidenceReports).ToList().OrderBy(pr => pr.ApplicationFrom);
             var cities = residences.Select(r => r.Area).Distinct();
             var model = new RentalModel
@@ -135,21 +134,23 @@ namespace Landlord_project.Controllers
 
             if (sortBy > 0 && residences.Count() > 1)
             {
-                switch (sortBy)
+                var sortByEnum = (SortByModel)sortBy;
+
+                switch (sortByEnum)
                 {
-                    case (int)SortByModel.Availability:
+                    case SortByModel.Availability:
                         residences = residences.OrderBy(re => re.ApplicationFrom);
                         break;
-                    case (int)SortByModel.RentFrom:
+                    case SortByModel.RentFrom:
                         residences = residences.OrderBy(re => re.RentalPrice);
                         break;
-                    case (int)SortByModel.RentTo:
+                    case SortByModel.RentTo:
                         residences = residences.OrderByDescending(re => re.RentalPrice);
                         break;
-                    case (int)SortByModel.Size:
+                    case SortByModel.Size:
                         residences = residences.OrderByDescending(re => re.Size);
                         break;
-                    case (int)SortByModel.Rooms:
+                    case SortByModel.Rooms:
                         residences = residences.OrderByDescending(re => re.Rooms);
                         break;
                 }
@@ -197,6 +198,7 @@ namespace Landlord_project.Controllers
         [HttpPost]
         public IActionResult RentalApplication(ResidenceApplication model)
         {
+            //ToDo: Skicka in ansökan
             if (!ModelState.IsValid)
             {
                 var test = "";

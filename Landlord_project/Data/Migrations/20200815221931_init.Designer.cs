@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Landlord_project.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200413091054_Initial")]
-    partial class Initial
+    [Migration("20200815221931_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,63 @@ namespace Landlord_project.Data.Migrations
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Landlord_project.Data.FaqAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Answer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FaqAnswers");
+                });
+
+            modelBuilder.Entity("Landlord_project.Data.FaqCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FaqCategories");
+                });
+
+            modelBuilder.Entity("Landlord_project.Data.FaqQuestion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnswerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerId")
+                        .IsUnique();
+
+                    b.HasIndex("CategoryId")
+                        .IsUnique();
+
+                    b.ToTable("FaqQuestions");
+                });
 
             modelBuilder.Entity("Landlord_project.Data.Residence", b =>
                 {
@@ -109,6 +166,70 @@ namespace Landlord_project.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Residence");
+                });
+
+            modelBuilder.Entity("Landlord_project.Data.ResidenceApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdditionalText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("AgreeOnTerms")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("CurrentLandLord")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentLandLordPhone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentWork")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Employer")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<bool>("HasPets")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSmoking")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ResidenceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ResidenceName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TenantId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResidenceId");
+
+                    b.HasIndex("TenantId");
+
+                    b.ToTable("ResidenceApplications");
                 });
 
             modelBuilder.Entity("Landlord_project.Data.ResidenceAssignment", b =>
@@ -213,6 +334,34 @@ namespace Landlord_project.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tenants");
+                });
+
+            modelBuilder.Entity("Landlord_project.Data.FaqQuestion", b =>
+                {
+                    b.HasOne("Landlord_project.Data.FaqAnswer", "Answer")
+                        .WithOne("Question")
+                        .HasForeignKey("Landlord_project.Data.FaqQuestion", "AnswerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Landlord_project.Data.FaqCategory", "Category")
+                        .WithOne("Question")
+                        .HasForeignKey("Landlord_project.Data.FaqQuestion", "CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Landlord_project.Data.ResidenceApplication", b =>
+                {
+                    b.HasOne("Landlord_project.Data.Residence", "Residence")
+                        .WithMany()
+                        .HasForeignKey("ResidenceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Landlord_project.Data.Tenant", "Tenant")
+                        .WithMany()
+                        .HasForeignKey("TenantId");
                 });
 
             modelBuilder.Entity("Landlord_project.Data.ResidenceAssignment", b =>

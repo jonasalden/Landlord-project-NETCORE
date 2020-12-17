@@ -18,6 +18,11 @@ namespace Landlord_project.Data
         public DbSet<ResidenceAssignment> ResidenceAssignments { get; set; }
         public DbSet<ResidenceReport> ResidenceReports { get; set; }
         public DbSet<ResidenceApplication> ResidenceApplications { get; set; }
+        public DbSet<FaqCategory> FaqCategories { get; set; }
+        public DbSet<FaqQuestion> FaqQuestions { get; set; }
+
+        public DbSet<FaqAnswer> FaqAnswers { get; set; }
+
         #endregion
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -26,6 +31,11 @@ namespace Landlord_project.Data
             builder.ApplyConfiguration(new TenantMap());
             builder.ApplyConfiguration(new ResidenceAssignmentMap());
             builder.ApplyConfiguration(new ReportMap());
+
+            builder.ApplyConfiguration(new FaqCategoryMap());
+            builder.ApplyConfiguration(new FaqQuestionMap());
+            builder.ApplyConfiguration(new FaqAnswerMap());
+
             // Residence Application
         }
     }

@@ -3,10 +3,36 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Landlord_project.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "FaqAnswers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Answer = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FaqAnswers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FaqCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FaqCategories", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Residence",
                 columns: table => new
@@ -67,6 +93,33 @@ namespace Landlord_project.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FaqQuestions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: false),
+                    AnswerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FaqQuestions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_FaqQuestions_FaqAnswers_AnswerId",
+                        column: x => x.AnswerId,
+                        principalTable: "FaqAnswers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FaqQuestions_FaqCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "FaqCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ResidenceReports",
                 columns: table => new
                 {
@@ -97,6 +150,44 @@ namespace Landlord_project.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ResidenceApplications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TenantId = table.Column<int>(nullable: true),
+                    HasPets = table.Column<bool>(nullable: false),
+                    IsSmoking = table.Column<bool>(nullable: false),
+                    Employer = table.Column<string>(maxLength: 100, nullable: true),
+                    CurrentWork = table.Column<string>(maxLength: 100, nullable: true),
+                    City = table.Column<string>(maxLength: 100, nullable: false),
+                    Address = table.Column<string>(nullable: false),
+                    ZipCode = table.Column<string>(nullable: false),
+                    CurrentLandLord = table.Column<string>(nullable: true),
+                    CurrentLandLordPhone = table.Column<string>(nullable: true),
+                    AdditionalText = table.Column<string>(nullable: true),
+                    AgreeOnTerms = table.Column<bool>(nullable: false),
+                    ResidenceId = table.Column<int>(nullable: false),
+                    ResidenceName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResidenceApplications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ResidenceApplications_Residence_ResidenceId",
+                        column: x => x.ResidenceId,
+                        principalTable: "Residence",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ResidenceApplications_Tenants_TenantId",
+                        column: x => x.TenantId,
+                        principalTable: "Tenants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ResidenceAssignments",
                 columns: table => new
                 {
@@ -121,6 +212,28 @@ namespace Landlord_project.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_FaqQuestions_AnswerId",
+                table: "FaqQuestions",
+                column: "AnswerId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FaqQuestions_CategoryId",
+                table: "FaqQuestions",
+                column: "CategoryId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResidenceApplications_ResidenceId",
+                table: "ResidenceApplications",
+                column: "ResidenceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResidenceApplications_TenantId",
+                table: "ResidenceApplications",
+                column: "TenantId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ResidenceAssignments_TenantID",
                 table: "ResidenceAssignments",
                 column: "TenantID");
@@ -134,10 +247,22 @@ namespace Landlord_project.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "FaqQuestions");
+
+            migrationBuilder.DropTable(
+                name: "ResidenceApplications");
+
+            migrationBuilder.DropTable(
                 name: "ResidenceAssignments");
 
             migrationBuilder.DropTable(
                 name: "ResidenceReports");
+
+            migrationBuilder.DropTable(
+                name: "FaqAnswers");
+
+            migrationBuilder.DropTable(
+                name: "FaqCategories");
 
             migrationBuilder.DropTable(
                 name: "Tenants");

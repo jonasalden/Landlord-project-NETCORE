@@ -75,3 +75,12 @@
 .breadcrumb {
     background: none !important;
 }
+#residenceApplication-form {
+    a {
+        margin-left:10px;
+        color:black;
+        &:hover {
+            text-decoration:none;
+        }
+    }
+}

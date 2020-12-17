@@ -25,7 +25,6 @@ namespace Landlord_project.App_Start
             services.AddTransient<IValidator<IFormFile>, FileValidator>();
             services.AddTransient<IValidator<ResidenceApplication>, ResidenceApplicationValidator>();
 
-
             services.AddTransient<IPictureService, PictureService>();
 
             #endregion
