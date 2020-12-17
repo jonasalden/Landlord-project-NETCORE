@@ -19,8 +19,6 @@ namespace Landlord_project.Controllers
         private readonly IGenericRepository<Residence> _residenceRepository;
         private readonly IGenericRepository<ResidenceReport> _residenceReportRepository;
         private readonly IGenericRepository<FaqQuestion> _faqQuestionRepository;
-
-        private readonly string imagePath = @"images\reports\";
         private readonly IPictureService _pictureService;
         #endregion
 
@@ -63,11 +61,16 @@ namespace Landlord_project.Controllers
                 return NotFound();
 
             model.DateCreated = DateTime.Now;
+
             if (model.Image != null && model.Image.Length > 0)
             {
                 var bytes = _pictureService.UploadPicture(_environment, model.Image, $"fel_{model.Email}_{model.DateCreated.ToString("yyyyMMddHHmmss")}");
-                model.ImageFile = bytes.Keys.First();
-                model.ImageName = bytes.Values.First();
+
+                if (bytes != null && bytes.Keys.Any() && bytes.Values.Any())
+                {
+                    model.ImageFile = bytes.Keys.First();
+                    model.ImageName = bytes.Values.First();
+                }
             }
 
             var reportModel = new ResidenceReport
@@ -85,7 +88,11 @@ namespace Landlord_project.Controllers
                 CanAccessResidence = model.CanAccessResidence,
                 HousingNumber = model.HousingNumber
             };
+
             _residenceReportRepository.Insert(reportModel);
+
+            TempData["ReportMessage"] = $"Tack! <strong>{reportModel.FirstName}</strong>, Vi återkommer till dig inom kort. (bild sparad i {_environment.WebRootPath}images\\reports\\)";
+
             return RedirectToAction("Index", "Home");
         }
 

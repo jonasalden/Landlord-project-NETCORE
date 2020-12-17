@@ -28,6 +28,12 @@
             color: white;
         }
     }
+
+    #rental-details-content {
+        border:1px solid lightgray;
+        padding:10px;
+        border-radius:10px;
+    }
 }
 
 #rental-list-container {
@@ -44,18 +50,22 @@
     #rental-list-filters {
         background-color: #f3f3f3;
 
-        .ui-slider-handle{
-            &:hover {
-                cursor:pointer;
-            }
-        }
-        
-        select {
+        .ui-slider-handle {
             &:hover {
                 cursor: pointer;
             }
+        }
+
+        select {
+            border: 1px solid #ced4da;
+            border-radius: .25rem;
+
+            &:hover {
+                cursor: pointer;
+            }
+
             option {
-                cursor:pointer;
+                cursor: pointer;
             }
         }
 
@@ -75,12 +85,14 @@
 .breadcrumb {
     background: none !important;
 }
+
 #residenceApplication-form {
     a {
-        margin-left:10px;
-        color:black;
+        margin-left: 10px;
+        color: black;
+
         &:hover {
-            text-decoration:none;
+            text-decoration: none;
         }
     }
 }

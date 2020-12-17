@@ -34,7 +34,14 @@ namespace Landlord_project.Controllers
         #region Methods
         public IActionResult Index()
         {
-            return View();
+            var model = new IndexModel();
+
+            if (TempData.ContainsKey("ReportMessage"))
+            {
+                model.Message = TempData["ReportMessage"].ToString();
+            }
+
+            return View(model);
         }
         [Route("hyresledigt")]
         public IActionResult Rental()
@@ -92,6 +99,7 @@ namespace Landlord_project.Controllers
         public IActionResult RentalDetails(int id, bool ActivateRegisterForm)
         {
             var residence = _residenceRepository.GetById(id);
+
             if (residence == null)
                 return View(null);
 

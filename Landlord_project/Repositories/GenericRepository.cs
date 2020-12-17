@@ -30,14 +30,29 @@ namespace Landlord_project.Repositories
 
         public IEnumerable<T> Get(params Expression<Func<T, object>>[] includes)
         {
-            var query = _context.Set<T>();
-            return includes.Aggregate(query.AsQueryable(), (query, path) => query.Include(path));
+            try
+            {
+                var query = _context.Set<T>();
+                return includes.Aggregate(query.AsQueryable(), (query, path) => query.Include(path));
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
         }
 
         public T GetById(int id, params Expression<Func<T, object>>[] includes)
         {
-            var query = _context.Set<T>();
-            return includes.Aggregate(query.AsQueryable(), (query, path) => query.Include(path)).FirstOrDefault(x => x.Id == id);
+            try
+            {
+                var query = _context.Set<T>();
+                return includes.Aggregate(query.AsQueryable(), (query, path) => query.Include(path)).FirstOrDefault(x => x.Id == id);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         public void Insert(T entity)

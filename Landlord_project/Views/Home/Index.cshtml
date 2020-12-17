@@ -1,7 +1,16 @@
-﻿@{
+﻿@model Landlord_project.Models.IndexModel
+
+@{
     ViewData["Title"] = "Hem";
 }
+
 <div class="row">
+    @if (!string.IsNullOrWhiteSpace(Model.Message))
+    {
+        <div class="col-12 mt-3">
+            <div class="alert alert-success">@Html.Raw(Model.Message)</div>
+        </div>
+    }
     <div class="col-12 mt-3">
         <h1 class="display-4">Aktuellt hos Jonas Fastigheter</h1>
         <hr />
