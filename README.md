@@ -13,4 +13,5 @@ Key focuses
 * GRUNT.JS TASK RUNNER
 * FLUENT VALIDATION
 * UPLOADING FILES ~ _YOUR_PATH_\Landlord_project\wwwroot\images\reports
+* Simple Ajax based search
 * Compiling and styling with SaSS
