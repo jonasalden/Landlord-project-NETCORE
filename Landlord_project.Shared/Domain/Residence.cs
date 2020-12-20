@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Landlord_project.Data
+namespace Landlord_project.Shared.Domain
 {
     public class Residence : BaseEntity
     {

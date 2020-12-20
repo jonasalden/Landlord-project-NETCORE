@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Landlord_project.Data
+namespace Landlord_project.Shared.Domain
 {
     public class ResidenceApplication : BaseEntity
     {

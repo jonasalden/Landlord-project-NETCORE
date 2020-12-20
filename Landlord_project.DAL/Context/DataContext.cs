@@ -1,7 +1,8 @@
-﻿using Landlord_project.Data.Mappings;
+﻿using Landlord_project.DAL.Mappings;
+using Landlord_project.Shared.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Landlord_project.Data
+namespace Landlord_project.DAL
 {
     public class DataContext : DbContext
     {

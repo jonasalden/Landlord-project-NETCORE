@@ -1,15 +1,13 @@
-﻿using Landlord_project.Data;
+﻿using Landlord_project.DAL.Repositories;
 using Landlord_project.Models;
 using Landlord_project.Models.Enums;
-using Landlord_project.Repositories;
 using Landlord_project.Services.Interfaces;
+using Landlord_project.Shared.Domain;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 
 namespace Landlord_project.Controllers

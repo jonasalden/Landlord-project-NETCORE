@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Landlord_project", "Landlord_project\Landlord_project.csproj", "{069B6D3B-659C-464F-A55E-B875004408A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Landlord_project", "Landlord_project\Landlord_project.csproj", "{069B6D3B-659C-464F-A55E-B875004408A1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Landlord_project.Shared", "Landlord_project.shared\Landlord_project.Shared.csproj", "{93E92D0A-E933-4C0A-8681-68EBD488FF80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Landlord_project.DAL", "Landlord_project.DAL\Landlord_project.DAL.csproj", "{6168FE65-8660-4008-A14B-87492D130793}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{069B6D3B-659C-464F-A55E-B875004408A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{069B6D3B-659C-464F-A55E-B875004408A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{069B6D3B-659C-464F-A55E-B875004408A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93E92D0A-E933-4C0A-8681-68EBD488FF80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93E92D0A-E933-4C0A-8681-68EBD488FF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93E92D0A-E933-4C0A-8681-68EBD488FF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93E92D0A-E933-4C0A-8681-68EBD488FF80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6168FE65-8660-4008-A14B-87492D130793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6168FE65-8660-4008-A14B-87492D130793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6168FE65-8660-4008-A14B-87492D130793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6168FE65-8660-4008-A14B-87492D130793}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

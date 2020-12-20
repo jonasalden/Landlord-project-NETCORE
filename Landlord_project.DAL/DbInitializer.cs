@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Landlord_project.DAL;
+using Landlord_project.Shared.Domain;
+using System;
 using System.Linq;
 
-namespace Landlord_project.Data
+namespace Landlord_project.DAL
 {
     public static class DbInitializer
     {

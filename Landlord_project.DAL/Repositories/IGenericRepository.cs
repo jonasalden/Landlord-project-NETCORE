@@ -1,9 +1,9 @@
-﻿using Landlord_project.Data;
+﻿using Landlord_project.Shared.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Landlord_project.Repositories
+namespace Landlord_project.DAL.Repositories
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {

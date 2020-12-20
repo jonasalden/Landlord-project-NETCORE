@@ -1,4 +1,4 @@
-﻿namespace Landlord_project.Data
+﻿namespace Landlord_project.Shared.Domain
 {
     public class ResidenceAssignment
     {

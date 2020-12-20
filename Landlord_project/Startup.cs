@@ -1,13 +1,12 @@
 using FluentValidation.AspNetCore;
 using Landlord_project.App_Start;
-using Landlord_project.Data;
+using Landlord_project.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 namespace Landlord_project
 {
     public class Startup

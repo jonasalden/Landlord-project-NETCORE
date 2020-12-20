@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
-using Landlord_project.Data;
 using Landlord_project.Models;
 using Landlord_project.Models.Validators;
-using Landlord_project.Repositories;
+using Landlord_project.DAL.Repositories;
 using Landlord_project.Services;
 using Landlord_project.Services.Interfaces;
+using Landlord_project.Shared.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 

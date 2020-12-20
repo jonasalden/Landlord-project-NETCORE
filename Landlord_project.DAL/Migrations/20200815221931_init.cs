@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Landlord_project.Data.Migrations
+namespace Landlord_project.DAL.Migrations
 {
     public partial class init : Migration
     {

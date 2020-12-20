@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Landlord_project.Data
+namespace Landlord_project.Shared.Domain
 {
     public class Tenant : BaseEntity
     {

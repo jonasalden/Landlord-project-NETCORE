@@ -1,11 +1,11 @@
-﻿using Landlord_project.Data;
+﻿using Landlord_project.Shared.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Landlord_project.Repositories
+namespace Landlord_project.DAL.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {

@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Landlord_project.Data;
+using Landlord_project.Shared.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
