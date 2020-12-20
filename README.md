@@ -6,7 +6,7 @@ A simple Landlord site .NET Core 3.1 Project using LocalDB i'm playing around wi
 Focusing on a clean architectural project structure.
 
 Key focuses
-* .NET CORE MVC ARCHITECTURE
+* .NET CORE MVC
 * Three Layer ARCHITECTURE
 * CODE FIRST
 * FLUENT API
