@@ -7,11 +7,12 @@ Focusing on a clean architectural project structure.
 
 Key focuses
 * .NET CORE MVC ARCHITECTURE
+* Three Layer ARCHITECTURE
 * CODE FIRST
 * FLUENT API
 * GENERIC REPOSITORY PATTERN
 * GRUNT.JS TASK RUNNER
 * FLUENT VALIDATION
-* UPLOADING FILES ~ _YOUR_PATH_\Landlord_project\wwwroot\images\reports
+* UPLOADING FILES
 * Simple Ajax based filtering
 * Compiling and styling with SaSS
